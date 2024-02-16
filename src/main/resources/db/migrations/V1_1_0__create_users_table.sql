@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS users(
     media VARCHAR(255) NOT NULL ,
     rating integer NOT NULL
 
-)
+);
