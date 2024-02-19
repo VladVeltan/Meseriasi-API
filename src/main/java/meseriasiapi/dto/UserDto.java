@@ -2,6 +2,7 @@ package meseriasiapi.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import meseriasiapi.domain.Role;
 
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ public class UserDto {
 
     private String password;
 
-    private String accountType;
+    private Role role;
 
     private String phone;
 
