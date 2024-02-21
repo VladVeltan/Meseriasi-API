@@ -13,7 +13,7 @@ public class ListingMapper {
     private final UserService userService;
 
 
-    public ListingDto toDto(Listing listing){
+    public ListingDto toDto(Listing listing) {
         return ListingDto.builder()
                 .id(listing.getId())
                 .title(listing.getTitle())
@@ -25,7 +25,8 @@ public class ListingMapper {
                 .user_id(listing.getUser().getId())
                 .build();
     }
-    public Listing toEntity(ListingDto listingDto){
+
+    public Listing toEntity(ListingDto listingDto) {
         return Listing.builder()
                 .id(listingDto.getId())
                 .title(listingDto.getTitle())

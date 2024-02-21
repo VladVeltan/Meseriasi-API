@@ -29,7 +29,7 @@ public class User extends BaseEntity implements UserDetails {
     private String email;
 
     private String password;
-    @Enumerated(value= EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private Role role;
 
     private String phone;

@@ -23,8 +23,8 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(User request){
-        User user=User.builder()
+    public AuthenticationResponse register(User request) {
+        User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
@@ -33,25 +33,25 @@ public class AuthService {
                 .rating(request.getRating())
                 .build();
 
-        user=userRepository.save(user);
+        user = userRepository.save(user);
 
-        String token=jwtService.generateToken(user);
+        String token = jwtService.generateToken(user);
 
         return new AuthenticationResponse(token);
     }
 
-    public AuthenticationResponse authenticate(User request){
+    public AuthenticationResponse authenticate(User request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()
                 )
         );
-        Optional<User> user=userRepository.findByEmail(request.getUsername());
-        if(user.isEmpty()){
+        Optional<User> user = userRepository.findByEmail(request.getUsername());
+        if (user.isEmpty()) {
             throw new EntityNotFoundException(USER_NOT_FOUND);
         }
-        String token=jwtService.generateToken(user.get());
+        String token = jwtService.generateToken(user.get());
         return new AuthenticationResponse(token);
 
     }
