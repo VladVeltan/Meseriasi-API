@@ -3,22 +3,18 @@ package meseriasiapi.service;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import meseriasiapi.domain.Role;
 import meseriasiapi.domain.User;
 import meseriasiapi.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
-import static meseriasiapi.exceptions.messages.Messages.ACCOUNT_TYPE_DOES_NOT_EXIST;
-import static meseriasiapi.exceptions.messages.Messages.USER_ALREADY_EXISTS;
+import static meseriasiapi.exceptions.messages.Messages.*;
 
 @Service
 @AllArgsConstructor
 public class UserService {
-
     private final UserRepository userRepository;
 
     public User findById(UUID id) {
@@ -34,18 +30,50 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public boolean checkIfRoleIsInEnum(String role){
+        List<String> enumValues= Arrays
+                .stream(Role.values())
+                .map(Enum::name).toList();
+
+        return enumValues.contains(role);
+    }
     public User createUser(User user) {
-        ///remember to modify this according to modifing role to be a ENUM
-        if (!Objects.equals(user.getRole(), "ADMIN") && !Objects.equals(user.getRole(), "HANDYMAN") && !Objects.equals(user.getRole(), "USER")) {
-            throw new EntityNotFoundException(ACCOUNT_TYPE_DOES_NOT_EXIST);
+
+        if (!checkIfRoleIsInEnum(user.getRole().name()) || user.getRole()!=null) {
+            throw new EntityNotFoundException(ROLE_DOES_NOT_EXIST);
         }
 
         Optional<User> isUserFound = userRepository.findByEmail(user.getEmail());
         if (isUserFound.isEmpty()) {
-            //encode password
             return userRepository.save(user);
         }
         throw new EntityExistsException(USER_ALREADY_EXISTS);
 
+    }
+
+    public User updateUser(User newUser){
+
+        if (!checkIfRoleIsInEnum(newUser.getRole().name()) || newUser.getRole()!=null) {
+            throw new EntityNotFoundException(ROLE_DOES_NOT_EXIST);
+        }
+
+        Optional<User> existingUserOptional = userRepository.findByEmail(newUser.getEmail());
+        if (existingUserOptional.isEmpty()) {
+           throw new EntityNotFoundException(NO_SUCH_USER_FOUND);
+        }
+
+        User existingUser = existingUserOptional.get();
+
+        User updatedUser = User.builder()
+                .id(existingUser.getId())
+                .email(newUser.getEmail())
+                .password(newUser.getPassword())
+                .role(newUser.getRole())
+                .phone(newUser.getPhone())
+                .media(newUser.getMedia())
+                .rating(newUser.getRating())
+                .build();
+
+        return userRepository.save(updatedUser);
     }
 }

@@ -7,7 +7,7 @@ import meseriasiapi.dto.UserDto;
 import meseriasiapi.mapper.UserMapper;
 import meseriasiapi.service.UserService;
 
-import org.antlr.v4.runtime.misc.NotNull;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +39,9 @@ public class UserController {
     @PostMapping()
     public ResponseEntity<UserDto> createUser(@RequestBody @NonNull UserDto userDto) {
         return new ResponseEntity<>(userMapper.toDto(userService.createUser(userMapper.toEntity(userDto))),HttpStatus.CREATED);
+    }
+    @PutMapping
+    public ResponseEntity<UserDto> updateUser(@RequestBody @NonNull UserDto userDto){
+        return new ResponseEntity<>(userMapper.toDto(userService.updateUser(userMapper.toEntity(userDto))),HttpStatus.OK);
     }
 }

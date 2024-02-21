@@ -1,9 +1,6 @@
 package meseriasiapi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +17,8 @@ import lombok.experimental.SuperBuilder;
 public class Listing extends BaseEntity{
     private String title;
     private String description;
-    private String category;
+    @Enumerated(value= EnumType.STRING)
+    private Category category;
     private String county;
     private String city;
     private String media;
