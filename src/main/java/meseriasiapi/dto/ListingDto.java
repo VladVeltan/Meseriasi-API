@@ -2,6 +2,7 @@ package meseriasiapi.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import meseriasiapi.domain.Category;
 
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ public class ListingDto {
     private UUID id;
     private String title;
     private String description;
-    private String category;
+    private Category category;
     private String county;
     private String city;
     private String media;
