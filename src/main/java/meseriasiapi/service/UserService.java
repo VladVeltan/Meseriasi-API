@@ -8,7 +8,6 @@ import meseriasiapi.domain.User;
 import meseriasiapi.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,10 +23,10 @@ public class UserService {
     public User findById(UUID id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
-            throw new EntityNotFoundException("No user found");
-        } else {
-            return user.get();
+            throw new EntityNotFoundException(NO_USER_WITH_THIS_ID_FOUND);
         }
+        return user.get();
+
     }
 
     public List<User> getAllUsers() {
@@ -35,16 +34,18 @@ public class UserService {
     }
 
     public boolean checkIfRoleIsInEnum(String role) {
-        List<String> enumValues = Arrays
-                .stream(Role.values())
-                .map(Enum::name).toList();
-
-        return enumValues.contains(role);
+        try {
+            Role.valueOf(role);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
-    public User createUser(User user) {
 
-        if (!checkIfRoleIsInEnum(user.getRole().name()) || user.getRole() != null) {
+    public User createUser(User user) {
+        System.out.println(user);
+        if (!checkIfRoleIsInEnum(user.getRole().name()) || user.getRole() == null) {
             throw new EntityNotFoundException(ROLE_DOES_NOT_EXIST);
         }
 

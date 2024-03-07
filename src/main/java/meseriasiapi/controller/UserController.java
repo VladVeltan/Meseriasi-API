@@ -1,5 +1,6 @@
 package meseriasiapi.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import meseriasiapi.domain.User;
@@ -29,9 +30,13 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable UUID userId) {
-        User user = userService.findById(userId);
-        UserDto userDto = userMapper.toDto(user);
-        return new ResponseEntity<>(userDto, HttpStatus.OK);
+        try {
+            User user = userService.findById(userId);
+            UserDto userDto = userMapper.toDto(user);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        }catch (EntityNotFoundException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PostMapping()
@@ -39,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(userMapper.toDto(userService.createUser(userMapper.toEntity(userDto))), HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping()
     public ResponseEntity<UserDto> updateUser(@RequestBody @NonNull UserDto userDto) {
         return new ResponseEntity<>(userMapper.toDto(userService.updateUser(userMapper.toEntity(userDto))), HttpStatus.OK);
     }
