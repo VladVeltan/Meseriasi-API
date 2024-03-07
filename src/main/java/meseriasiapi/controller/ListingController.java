@@ -1,7 +1,7 @@
 package meseriasiapi.controller;
 
 
-
+import jakarta.persistence.EntityNotFoundException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import meseriasiapi.domain.Listing;
@@ -21,21 +21,28 @@ import java.util.UUID;
 public class ListingController {
     private final ListingService listingService;
     private final ListingMapper listingMapper;
+
     @GetMapping
-    public ResponseEntity<List<ListingDto>> getAllListings(){
-        List<Listing>listingList=listingService.getAllListings();
-        List<ListingDto> listingDtoList=listingList.stream().map(listingMapper::toDto).toList();
+    public ResponseEntity<List<ListingDto>> getAllListings() {
+        List<Listing> listingList = listingService.getAllListings();
+        List<ListingDto> listingDtoList = listingList.stream().map(listingMapper::toDto).toList();
         return new ResponseEntity<>(listingDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/{listingId}")
-    public ResponseEntity<ListingDto>getListingById(@PathVariable UUID listingId){
-        Listing listing=listingService.findById(listingId);
-        ListingDto listingDto=listingMapper.toDto(listing);
-        return new ResponseEntity<>(listingDto,HttpStatus.OK);
+    public ResponseEntity<ListingDto> getListingById(@PathVariable UUID listingId) {
+
+        try {
+            Listing listing = listingService.findById(listingId);
+            ListingDto listingDto = listingMapper.toDto(listing);
+            return new ResponseEntity<>(listingDto, HttpStatus.OK);
+        }catch(EntityNotFoundException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
+
     @PostMapping()
-    public ResponseEntity<ListingDto>createListing(@RequestBody @NonNull ListingDto listingDto){
-        return new ResponseEntity<>(listingMapper.toDto(listingService.createListing(listingMapper.toEntity(listingDto))),HttpStatus.CREATED);
+    public ResponseEntity<ListingDto> createListing(@RequestBody @NonNull ListingDto listingDto) {
+        return new ResponseEntity<>(listingMapper.toDto(listingService.createListing(listingMapper.toEntity(listingDto))), HttpStatus.CREATED);
     }
 }
