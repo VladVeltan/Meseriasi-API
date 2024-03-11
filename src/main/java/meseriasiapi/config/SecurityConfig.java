@@ -39,6 +39,7 @@ public class SecurityConfig {
                                 .requestMatchers("/login/**", "/register/**").permitAll()
                                 .requestMatchers("/listings/**").hasAnyAuthority("USER", "ADMIN")
                                 .requestMatchers("/users/**").hasAnyAuthority("USER","ADMIN")
+                                .requestMatchers("/projects/**").hasAnyAuthority("USER","ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsServiceImp)

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import meseriasiapi.domain.Category;
 import meseriasiapi.domain.Listing;
+import meseriasiapi.domain.Media;
 import meseriasiapi.repository.ListingRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static meseriasiapi.exceptions.messages.Messages.LISTING_NOT_FOUND;
-import static meseriasiapi.exceptions.messages.Messages.NO_LISTING_WITH_THIS_ID_FOUND;
+import static meseriasiapi.exceptions.messages.Messages.*;
 
 @Service
 @AllArgsConstructor
 public class ListingService {
 
+
     private final ListingRepository listingRepository;
+    private final MediaService mediaService;
 
     public List<Listing> getAllListings() {
         return listingRepository.findAll();
@@ -35,15 +37,24 @@ public class ListingService {
     public boolean checkIfCategoryIsInEnum(String category) {
         try {
             Category.valueOf(category);
-            return true;
-        } catch (IllegalArgumentException e) {
             return false;
+        } catch (IllegalArgumentException e) {
+            return true;
         }
     }
 
     public Listing createListing(Listing listing) {
-        if (!checkIfCategoryIsInEnum(listing.getCategory().name()) || listing.getCategory() == null) {
-            throw new EntityNotFoundException(LISTING_NOT_FOUND);
+
+        if (checkIfCategoryIsInEnum(listing.getCategory().name())) {
+            throw new EntityNotFoundException(LISTING_CATEGORY_NOT_FOUND);
+        }
+
+        Media media = new Media();
+        try {
+            mediaService.findByMediaUrl(listing.getMedia().getMediaUrl());
+        } catch (Exception e) {
+            media = mediaService.createMedia(Media.builder().mediaUrl(listing.getMedia().getMediaUrl()).build());
+            listing.setMedia(media);
         }
 
         return listingRepository.save(listing);
@@ -51,16 +62,16 @@ public class ListingService {
     }
 
     public Listing updateListing(Listing newUser) {
-        if(!checkIfCategoryIsInEnum(newUser.getCategory().name())||newUser.getCategory()==null){
-            throw new EntityNotFoundException("Category does not exist");
+        if (checkIfCategoryIsInEnum(newUser.getCategory().name())) {
+            throw new EntityNotFoundException(CATEGORY_DOES_NOT_EXIST);
         }
-        Optional<Listing> existingListingById=listingRepository.findById(newUser.getId());
-        if(existingListingById.isEmpty()){
+        Optional<Listing> existingListingById = listingRepository.findById(newUser.getId());
+        if (existingListingById.isEmpty()) {
             throw new EntityNotFoundException(NO_LISTING_WITH_THIS_ID_FOUND);
         }
-        Listing existingListing=existingListingById.get();
+        Listing existingListing = existingListingById.get();
 
-        Listing updatedListing=Listing.builder()
+        Listing updatedListing = Listing.builder()
                 .id(existingListing.getId())
                 .title(newUser.getTitle())
                 .description(newUser.getDescription())
