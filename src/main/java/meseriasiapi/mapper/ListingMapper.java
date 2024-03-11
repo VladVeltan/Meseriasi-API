@@ -4,6 +4,7 @@ package meseriasiapi.mapper;
 import lombok.AllArgsConstructor;
 import meseriasiapi.domain.Listing;
 import meseriasiapi.dto.ListingDto;
+import meseriasiapi.service.MediaService;
 import meseriasiapi.service.UserService;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class ListingMapper {
     private final UserService userService;
-
+    private final MediaService mediaService;
 
     public ListingDto toDto(Listing listing) {
         return ListingDto.builder()
@@ -21,7 +22,7 @@ public class ListingMapper {
                 .category(listing.getCategory())
                 .county(listing.getCounty())
                 .city(listing.getCity())
-                .media(listing.getMedia())
+                .media_id(listing.getMedia().getId())
                 .user_id(listing.getUser().getId())
                 .build();
     }
@@ -34,7 +35,7 @@ public class ListingMapper {
                 .category(listingDto.getCategory())
                 .county(listingDto.getCounty())
                 .city(listingDto.getCity())
-                .media(listingDto.getMedia())
+                .media(mediaService.findById(listingDto.getMedia_id()))
                 .user(userService.findById(listingDto.getUser_id()))
                 .build();
     }

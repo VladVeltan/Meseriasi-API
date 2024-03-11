@@ -9,4 +9,6 @@ public class Messages {
     public static final String NO_LISTING_WITH_THIS_ID_FOUND = "No listing with this id found";
     public static final String LISTING_NOT_FOUND = "Listing not found";
     public static final String LISTING_ALREADY_EXISTS = "Listing already exists";
+    public static final String CATEGORY_DOES_NOT_EXIST = "Category does not exist";
+    public static final String NO_MEDIA_WITH_THIS_ID = "No media with this ID";
 }

@@ -1,9 +1,6 @@
 package meseriasiapi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,7 +29,9 @@ public class User extends BaseEntity implements UserDetails {
     @NonNull
     private String phone;
     @NonNull
-    private String media;
+    @JoinColumn(name="media_id")
+    @ManyToOne
+    private Media media;
     @NonNull
     private String rating;
     @Override

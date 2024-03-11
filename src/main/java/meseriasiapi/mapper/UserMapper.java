@@ -1,11 +1,15 @@
 package meseriasiapi.mapper;
 
+import lombok.AllArgsConstructor;
 import meseriasiapi.domain.User;
 import meseriasiapi.dto.UserDto;
+import meseriasiapi.service.MediaService;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class UserMapper {
+    private final MediaService mediaService;
     public User toEntity(UserDto userDto) {
         return User.builder()
                 .id(userDto.getId())
@@ -13,7 +17,7 @@ public class UserMapper {
                 .password(userDto.getPassword())
                 .role(userDto.getRole())
                 .phone(userDto.getPhone())
-                .media(userDto.getMedia())
+                .media(mediaService.findById(userDto.getMedia_id()))
                 .rating(userDto.getRating())
                 .build();
     }
@@ -25,7 +29,7 @@ public class UserMapper {
                 .password(user.getPassword())
                 .role(user.getRole())
                 .phone(user.getPhone())
-                .media(user.getMedia())
+                .media_id(user.getMedia().getId())
                 .rating(user.getRating())
                 .build();
     }
