@@ -45,4 +45,8 @@ public class ListingController {
     public ResponseEntity<ListingDto> createListing(@RequestBody @NonNull ListingDto listingDto) {
         return new ResponseEntity<>(listingMapper.toDto(listingService.createListing(listingMapper.toEntity(listingDto))), HttpStatus.CREATED);
     }
+    @PutMapping()
+    public ResponseEntity<ListingDto> updateListing(@RequestBody @NonNull ListingDto newListingDto){
+        return new ResponseEntity<>(listingMapper.toDto(listingService.updateListing(listingMapper.toEntity(newListingDto))),HttpStatus.OK);
+    }
 }
