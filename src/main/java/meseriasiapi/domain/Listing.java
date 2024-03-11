@@ -24,7 +24,9 @@ public class Listing extends BaseEntity {
     @NonNull
     private String city;
     @NonNull
-    private String media;
+    @ManyToOne
+    @JoinColumn(name = "media_id")
+    private Media media;
     @NonNull
     @ManyToOne
     @JoinColumn(name = "user_id")
