@@ -11,4 +11,6 @@ public class Messages {
     public static final String LISTING_ALREADY_EXISTS = "Listing already exists";
     public static final String CATEGORY_DOES_NOT_EXIST = "Category does not exist";
     public static final String NO_MEDIA_WITH_THIS_ID = "No media with this ID";
+    public static final String NO_PROJECT_WITH_THIS_ID = "No project with this id";
+
 }
