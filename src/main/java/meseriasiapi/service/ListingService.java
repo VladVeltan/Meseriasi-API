@@ -49,4 +49,28 @@ public class ListingService {
         return listingRepository.save(listing);
 
     }
+
+    public Listing updateListing(Listing newUser) {
+        if(!checkIfCategoryIsInEnum(newUser.getCategory().name())||newUser.getCategory()==null){
+            throw new EntityNotFoundException("Category does not exist");
+        }
+        Optional<Listing> existingListingById=listingRepository.findById(newUser.getId());
+        if(existingListingById.isEmpty()){
+            throw new EntityNotFoundException(NO_LISTING_WITH_THIS_ID_FOUND);
+        }
+        Listing existingListing=existingListingById.get();
+
+        Listing updatedListing=Listing.builder()
+                .id(existingListing.getId())
+                .title(newUser.getTitle())
+                .description(newUser.getDescription())
+                .category(newUser.getCategory())
+                .county(newUser.getCounty())
+                .city(newUser.getCity())
+                .media(newUser.getMedia())
+                .user(newUser.getUser())
+                .build();
+
+        return listingRepository.save(updatedListing);
+    }
 }

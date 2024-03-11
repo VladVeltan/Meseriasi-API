@@ -59,12 +59,12 @@ public class UserService {
 
     public User updateUser(User newUser) {
 
-        if (!checkIfRoleIsInEnum(newUser.getRole().name()) || newUser.getRole() != null) {
+        if (!checkIfRoleIsInEnum(newUser.getRole().name()) || newUser.getRole() == null) {
             throw new EntityNotFoundException(ROLE_DOES_NOT_EXIST);
         }
         Optional<User> existingUserById = userRepository.findById(newUser.getId());
         if (existingUserById.isEmpty()) {
-            throw new EntityExistsException(NO_USER_WITH_THIS_ID_FOUND);
+            throw new EntityNotFoundException(NO_USER_WITH_THIS_ID_FOUND);
         }
 
         User existingUser = existingUserById.get();
@@ -72,7 +72,7 @@ public class UserService {
         User updatedUser = User.builder()
                 .id(existingUser.getId())
                 .email(newUser.getEmail())
-                .password(newUser.getPassword())
+                .password(newUser.getPassword()) //need to be encrypted
                 .role(newUser.getRole())
                 .phone(newUser.getPhone())
                 .media(newUser.getMedia())
