@@ -2,6 +2,7 @@ package meseriasiapi.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import meseriasiapi.domain.Category;
 
 import java.util.UUID;
 
@@ -13,5 +14,5 @@ public class ProjectDto {
     private String description;
     private UUID user_id;
     private UUID media_id;
-
+    private Category category;
 }

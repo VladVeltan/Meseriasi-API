@@ -35,15 +35,15 @@ public class ListingService {
     public boolean checkIfCategoryIsInEnum(String category) {
         try {
             Category.valueOf(category);
-            return true;
-        } catch (IllegalArgumentException e) {
             return false;
+        } catch (IllegalArgumentException e) {
+            return true;
         }
     }
 
     public Listing createListing(Listing listing) {
-        if (!checkIfCategoryIsInEnum(listing.getCategory().name())) {
-            throw new EntityNotFoundException(LISTING_NOT_FOUND);
+        if (checkIfCategoryIsInEnum(listing.getCategory().name())) {
+            throw new EntityNotFoundException(LISTING_CATEGORY_NOT_FOUND);
         }
 
         return listingRepository.save(listing);
@@ -51,7 +51,7 @@ public class ListingService {
     }
 
     public Listing updateListing(Listing newUser) {
-        if (!checkIfCategoryIsInEnum(newUser.getCategory().name())) {
+        if (checkIfCategoryIsInEnum(newUser.getCategory().name())) {
             throw new EntityNotFoundException(CATEGORY_DOES_NOT_EXIST);
         }
         Optional<Listing> existingListingById = listingRepository.findById(newUser.getId());

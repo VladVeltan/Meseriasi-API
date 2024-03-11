@@ -28,4 +28,7 @@ public class Project extends BaseEntity{
     @ManyToOne
     @JoinColumn(name="media_id")
     private Media media;
+    @NonNull
+    private Category category;
+
 }
