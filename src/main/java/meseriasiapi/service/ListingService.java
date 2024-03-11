@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import meseriasiapi.domain.Category;
 import meseriasiapi.domain.Listing;
+import meseriasiapi.domain.Media;
 import meseriasiapi.repository.ListingRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class ListingService {
 
 
     private final ListingRepository listingRepository;
+    private final MediaService mediaService;
 
     public List<Listing> getAllListings() {
         return listingRepository.findAll();
@@ -42,8 +44,17 @@ public class ListingService {
     }
 
     public Listing createListing(Listing listing) {
+
         if (checkIfCategoryIsInEnum(listing.getCategory().name())) {
             throw new EntityNotFoundException(LISTING_CATEGORY_NOT_FOUND);
+        }
+
+        Media media = new Media();
+        try {
+            mediaService.findByMediaUrl(listing.getMedia().getMediaUrl());
+        } catch (Exception e) {
+            media = mediaService.createMedia(Media.builder().mediaUrl(listing.getMedia().getMediaUrl()).build());
+            listing.setMedia(media);
         }
 
         return listingRepository.save(listing);

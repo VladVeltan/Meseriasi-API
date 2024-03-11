@@ -3,6 +3,7 @@ package meseriasiapi.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import meseriasiapi.domain.AuthenticationResponse;
+import meseriasiapi.domain.Media;
 import meseriasiapi.domain.User;
 import meseriasiapi.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,14 +23,23 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final MediaService mediaService;
 
     public AuthenticationResponse register(User request) {
+
+        Media media = new Media();
+        try {
+            media = mediaService.findByMediaUrl(request.getMedia().getMediaUrl());
+        } catch (Exception e) {
+            media = mediaService.createMedia(Media.builder().mediaUrl(request.getMedia().getMediaUrl()).build());
+        }
+
         User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .phone(request.getPhone())
-                .media(request.getMedia())
+                .media(media)
                 .rating(request.getRating())
                 .build();
 

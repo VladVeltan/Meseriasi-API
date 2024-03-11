@@ -2,6 +2,7 @@ package meseriasiapi.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import meseriasiapi.domain.Media;
 import meseriasiapi.domain.Project;
 import meseriasiapi.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import static meseriasiapi.exceptions.messages.Messages.*;
 public class ProjectService {
     private final ProjectRepository projectRepository;
     private final ListingService listingService;
+    private final MediaService mediaService;
 
     public Project findById(UUID projectId){
         Optional<Project> project=projectRepository.findById(projectId);
@@ -31,9 +33,18 @@ public class ProjectService {
     }
 
     public Project createProject(Project project) {
+
         if(listingService.checkIfCategoryIsInEnum(project.getCategory().name()))
         {
             throw new EntityNotFoundException(PROJECT_CATEGORY_NOT_FOUND);
+        }
+
+        Media media = new Media();
+        try {
+            mediaService.findByMediaUrl(project.getMedia().getMediaUrl());
+        } catch (Exception e) {
+            media = mediaService.createMedia(Media.builder().mediaUrl(project.getMedia().getMediaUrl()).build());
+            project.setMedia(media);
         }
 
         return projectRepository.save(project);

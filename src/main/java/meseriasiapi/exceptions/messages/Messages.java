@@ -14,5 +14,5 @@ public class Messages {
     public static final String NO_PROJECT_WITH_THIS_ID = "No project with this id";
     public static final String PROJECT_CATEGORY_NOT_FOUND = "Project category not found";
     public static final String NO_PROJECT_WITH_THIS_ID_FOUND = "No project with this id found";
-
+    public static final String NO_MEDIA_WITH_THIS_URL_FOUND = "No media with this url found";
 }
