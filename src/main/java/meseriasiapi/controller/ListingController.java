@@ -36,7 +36,7 @@ public class ListingController {
             Listing listing = listingService.findById(listingId);
             ListingDto listingDto = listingMapper.toDto(listing);
             return new ResponseEntity<>(listingDto, HttpStatus.OK);
-        }catch(EntityNotFoundException ex){
+        } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
@@ -45,8 +45,14 @@ public class ListingController {
     public ResponseEntity<ListingDto> createListing(@RequestBody @NonNull ListingDto listingDto) {
         return new ResponseEntity<>(listingMapper.toDto(listingService.createListing(listingMapper.toEntity(listingDto))), HttpStatus.CREATED);
     }
+
     @PutMapping()
-    public ResponseEntity<ListingDto> updateListing(@RequestBody @NonNull ListingDto newListingDto){
-        return new ResponseEntity<>(listingMapper.toDto(listingService.updateListing(listingMapper.toEntity(newListingDto))),HttpStatus.OK);
+    public ResponseEntity<ListingDto> updateListing(@RequestBody @NonNull ListingDto newListingDto) {
+        return new ResponseEntity<>(listingMapper.toDto(listingService.updateListing(listingMapper.toEntity(newListingDto))), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteListing(@PathVariable UUID id) {
+        return new ResponseEntity<>(listingService.deleteListing(id), HttpStatus.OK);
     }
 }

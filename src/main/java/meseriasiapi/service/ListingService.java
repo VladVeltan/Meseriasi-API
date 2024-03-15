@@ -4,7 +4,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import meseriasiapi.domain.Category;
 import meseriasiapi.domain.Listing;
-import meseriasiapi.domain.Media;
 import meseriasiapi.repository.ListingRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,6 @@ public class ListingService {
 
 
     private final ListingRepository listingRepository;
-    private final MediaService mediaService;
 
     public List<Listing> getAllListings() {
         return listingRepository.findAll();
@@ -48,15 +46,6 @@ public class ListingService {
         if (checkIfCategoryIsInEnum(listing.getCategory().name())) {
             throw new EntityNotFoundException(LISTING_CATEGORY_NOT_FOUND);
         }
-
-        Media media = new Media();
-        try {
-            mediaService.findByMediaUrl(listing.getMedia().getMediaUrl());
-        } catch (Exception e) {
-            media = mediaService.createMedia(Media.builder().mediaUrl(listing.getMedia().getMediaUrl()).build());
-            listing.setMedia(media);
-        }
-
         return listingRepository.save(listing);
 
     }
@@ -78,10 +67,19 @@ public class ListingService {
                 .category(newUser.getCategory())
                 .county(newUser.getCounty())
                 .city(newUser.getCity())
-                .media(newUser.getMedia())
                 .user(newUser.getUser())
                 .build();
 
         return listingRepository.save(updatedListing);
+    }
+
+    public String deleteListing(UUID id) {
+        Optional<Listing> listing = listingRepository.findById(id);
+        if (listing.isPresent()) {
+            listingRepository.delete(listing.get());
+            return LISTING_WAS_SUCCESSFULLY_DELETED;
+        } else {
+            throw new EntityNotFoundException(NO_LISTING_WITH_THIS_ID_FOUND);
+        }
     }
 }

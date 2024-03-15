@@ -1,6 +1,9 @@
 package meseriasiapi.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,12 +31,10 @@ public class User extends BaseEntity implements UserDetails {
     private Role role;
     @NonNull
     private String phone;
-    @NonNull
-    @JoinColumn(name="media_id")
-    @ManyToOne
-    private Media media;
+
     @NonNull
     private String rating;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

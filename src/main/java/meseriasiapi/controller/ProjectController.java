@@ -20,12 +20,14 @@ import java.util.UUID;
 public class ProjectController {
     private final ProjectService projectService;
     private final ProjectMapper projectMapper;
+
     @GetMapping
-    public ResponseEntity<List<ProjectDto>> getAllProjects(){
-        List<Project> projectList=projectService.getAllProjects();
-        List<ProjectDto> projectDtoList=projectList.stream().map(projectMapper::toDto).toList();
+    public ResponseEntity<List<ProjectDto>> getAllProjects() {
+        List<Project> projectList = projectService.getAllProjects();
+        List<ProjectDto> projectDtoList = projectList.stream().map(projectMapper::toDto).toList();
         return new ResponseEntity<>(projectDtoList, HttpStatus.OK);
     }
+
     @GetMapping("/{projectId}")
     public ResponseEntity<ProjectDto> getProjectById(@PathVariable UUID projectId) {
 
@@ -33,7 +35,7 @@ public class ProjectController {
             Project project = projectService.findById(projectId);
             ProjectDto projectDto = projectMapper.toDto(project);
             return new ResponseEntity<>(projectDto, HttpStatus.OK);
-        }catch(EntityNotFoundException ex){
+        } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
@@ -42,8 +44,14 @@ public class ProjectController {
     public ResponseEntity<ProjectDto> createProject(@RequestBody @NonNull ProjectDto projectDto) {
         return new ResponseEntity<>(projectMapper.toDto(projectService.createProject(projectMapper.toEntity(projectDto))), HttpStatus.CREATED);
     }
+
     @PutMapping()
-    public ResponseEntity<ProjectDto> updateProject(@RequestBody @NonNull ProjectDto newProjectDto){
-        return new ResponseEntity<>(projectMapper.toDto(projectService.updateProject(projectMapper.toEntity(newProjectDto))),HttpStatus.OK);
+    public ResponseEntity<ProjectDto> updateProject(@RequestBody @NonNull ProjectDto newProjectDto) {
+        return new ResponseEntity<>(projectMapper.toDto(projectService.updateProject(projectMapper.toEntity(newProjectDto))), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProgram(@PathVariable UUID id) {
+        return new ResponseEntity<>(projectService.deleteProject(id), HttpStatus.OK);
     }
 }

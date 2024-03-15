@@ -15,6 +15,5 @@ public class ListingDto {
     private Category category;
     private String county;
     private String city;
-    private UUID media_id;
     private UUID user_id;
 }

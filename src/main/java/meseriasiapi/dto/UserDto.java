@@ -20,7 +20,6 @@ public class UserDto {
 
     private String phone;
 
-    private UUID media_id;
 
     private String rating;
 

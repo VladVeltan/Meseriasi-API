@@ -3,7 +3,6 @@ package meseriasiapi.mapper;
 import lombok.AllArgsConstructor;
 import meseriasiapi.domain.Project;
 import meseriasiapi.dto.ProjectDto;
-import meseriasiapi.service.MediaService;
 import meseriasiapi.service.UserService;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class ProjectMapper {
     private final UserService userService;
-    private final MediaService mediaService;
 
     public ProjectDto toDto(Project project) {
         return ProjectDto.builder()
@@ -19,7 +17,6 @@ public class ProjectMapper {
                 .title(project.getTitle())
                 .description(project.getDescription())
                 .user_id(project.getUser().getId())
-                .media_id(project.getMedia().getId())
                 .build();
     }
 
@@ -29,7 +26,6 @@ public class ProjectMapper {
                 .title(projectDto.getTitle())
                 .description(projectDto.getDescription())
                 .user(userService.findById(projectDto.getUser_id()))
-                .media(mediaService.findById(projectDto.getMedia_id()))
                 .build();
 
     }
