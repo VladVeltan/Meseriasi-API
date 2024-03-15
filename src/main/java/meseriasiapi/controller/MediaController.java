@@ -22,11 +22,6 @@ public class MediaController {
 
     @PostMapping()
     public ResponseEntity<MediaDto> createMediaDto(@RequestBody @NonNull MediaDto mediaDto) {
-        try {
-            return new ResponseEntity<>(mediaMapper.toDto(mediaService.createMedia(mediaMapper.toEntity(mediaDto))), CREATED);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+        return new ResponseEntity<>(mediaMapper.toDto(mediaService.createMedia(mediaMapper.toEntity(mediaDto))), CREATED);
     }
 }
