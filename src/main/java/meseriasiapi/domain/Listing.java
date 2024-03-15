@@ -23,10 +23,7 @@ public class Listing extends BaseEntity {
     private String county;
     @NonNull
     private String city;
-    @NonNull
-    @ManyToOne
-    @JoinColumn(name = "media_id")
-    private Media media;
+
     @NonNull
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -15,4 +15,6 @@ public class Messages {
     public static final String PROJECT_CATEGORY_NOT_FOUND = "Project category not found";
     public static final String NO_PROJECT_WITH_THIS_ID_FOUND = "No project with this id found";
     public static final String NO_MEDIA_WITH_THIS_URL_FOUND = "No media with this url found";
+    public static final String LISTING_WAS_SUCCESSFULLY_DELETED = "Listing was successfully deleted";
+    public static final String PROJECT_WAS_DELETED_SUCCESSFULLY = "Project was deleted successfully";
 }

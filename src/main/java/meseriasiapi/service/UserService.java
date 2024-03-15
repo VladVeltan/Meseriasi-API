@@ -75,7 +75,6 @@ public class UserService {
                 .password(newUser.getPassword()) //need to be encrypted
                 .role(newUser.getRole())
                 .phone(newUser.getPhone())
-                .media(newUser.getMedia())
                 .rating(newUser.getRating())
                 .build();
 

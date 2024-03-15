@@ -17,6 +17,7 @@ import static meseriasiapi.exceptions.messages.Messages.NO_MEDIA_WITH_THIS_URL_F
 public class MediaService {
 
 
+    public static final String MEDIA_WAS_SUCCESSFULLY_DELETED = "Media was successfully deleted";
     private final MediaRepository mediaRepository;
 
     public Media findById(UUID mediaId) {
@@ -26,7 +27,8 @@ public class MediaService {
         }
         return media.get();
     }
-    public Media findByMediaUrl(String mediaUrl){
+
+    public Media findByMediaUrl(String mediaUrl) {
         Optional<Media> media = mediaRepository.findByMediaUrl(mediaUrl);
         if (media.isEmpty()) {
             throw new EntityNotFoundException(NO_MEDIA_WITH_THIS_URL_FOUND);
@@ -36,5 +38,15 @@ public class MediaService {
 
     public Media createMedia(Media media) {
         return mediaRepository.save(media);
+    }
+
+    public String deleteMedia(UUID id) {
+        Optional<Media> media = mediaRepository.findById(id);
+        if (media.isPresent()) {
+            mediaRepository.delete(media.get());
+            return MEDIA_WAS_SUCCESSFULLY_DELETED;
+        } else {
+            throw new EntityNotFoundException(NO_MEDIA_WITH_THIS_ID);
+        }
     }
 }

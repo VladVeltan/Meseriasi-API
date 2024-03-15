@@ -13,6 +13,5 @@ public class ProjectDto {
     private String title;
     private String description;
     private UUID user_id;
-    private UUID media_id;
     private Category category;
 }

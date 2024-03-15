@@ -8,14 +8,14 @@ import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Table(name="projects")
+@Table(name = "projects")
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class Project extends BaseEntity{
+public class Project extends BaseEntity {
     @NonNull
     private String title;
     @NonNull
@@ -24,10 +24,6 @@ public class Project extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @NonNull
-    @ManyToOne
-    @JoinColumn(name="media_id")
-    private Media media;
     @NonNull
     private Category category;
 
