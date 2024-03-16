@@ -56,6 +56,10 @@ public class ProjectService {
                 .title(newProject.getTitle())
                 .description(newProject.getDescription())
                 .category(newProject.getCategory())
+                .status(newProject.getStatus())
+                .creationDate(existingProject.getCreationDate())
+                .county(newProject.getCounty())
+                .city(newProject.getCity())
                 .user(newProject.getUser())
                 .build();
         return projectRepository.save(updatedProject);

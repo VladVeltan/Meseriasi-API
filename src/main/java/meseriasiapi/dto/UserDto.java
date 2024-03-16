@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import meseriasiapi.domain.Role;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -22,5 +23,7 @@ public class UserDto {
 
 
     private String rating;
+
+    private LocalDateTime creationDate;
 
 }

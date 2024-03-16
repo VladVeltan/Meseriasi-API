@@ -68,6 +68,8 @@ public class ListingService {
                 .county(newUser.getCounty())
                 .city(newUser.getCity())
                 .user(newUser.getUser())
+                .creationDate(existingListing.getCreationDate())
+                .status(newUser.getStatus())
                 .build();
 
         return listingRepository.save(updatedListing);
