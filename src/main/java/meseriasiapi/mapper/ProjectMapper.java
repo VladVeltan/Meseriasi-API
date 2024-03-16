@@ -17,6 +17,10 @@ public class ProjectMapper {
                 .title(project.getTitle())
                 .description(project.getDescription())
                 .user_id(project.getUser().getId())
+                .creationDate(project.getCreationDate())
+                .status(project.getStatus())
+                .county(project.getCounty())
+                .city(project.getCity())
                 .build();
     }
 
@@ -26,6 +30,10 @@ public class ProjectMapper {
                 .title(projectDto.getTitle())
                 .description(projectDto.getDescription())
                 .user(userService.findById(projectDto.getUser_id()))
+                .status(projectDto.getStatus())
+                .creationDate(projectDto.getCreationDate())
+                .county(projectDto.getCounty())
+                .city(projectDto.getCity())
                 .build();
 
     }

@@ -31,6 +31,7 @@ public class AuthService {
                 .role(request.getRole())
                 .phone(request.getPhone())
                 .rating(request.getRating())
+                .creationDate(request.getCreationDate())
                 .build();
 
         user = userRepository.save(user);

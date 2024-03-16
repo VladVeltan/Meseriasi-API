@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
+
 @Table(name = "listings")
 @Entity
 @Getter
@@ -23,7 +25,10 @@ public class Listing extends BaseEntity {
     private String county;
     @NonNull
     private String city;
-
+    @NonNull
+    private LocalDateTime creationDate;
+    @NonNull
+    private Boolean status;
     @NonNull
     @ManyToOne
     @JoinColumn(name = "user_id")

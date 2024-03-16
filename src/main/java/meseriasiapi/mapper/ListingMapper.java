@@ -20,6 +20,8 @@ public class ListingMapper {
                 .category(listing.getCategory())
                 .county(listing.getCounty())
                 .city(listing.getCity())
+                .creationDate(listing.getCreationDate())
+                .status(listing.getStatus())
                 .user_id(listing.getUser().getId())
                 .build();
     }
@@ -32,6 +34,8 @@ public class ListingMapper {
                 .category(listingDto.getCategory())
                 .county(listingDto.getCounty())
                 .city(listingDto.getCity())
+                .creationDate(listingDto.getCreationDate())
+                .status(listingDto.getStatus())
                 .user(userService.findById(listingDto.getUser_id()))
                 .build();
     }

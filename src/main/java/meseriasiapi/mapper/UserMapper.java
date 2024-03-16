@@ -17,6 +17,7 @@ public class UserMapper {
                 .role(userDto.getRole())
                 .phone(userDto.getPhone())
                 .rating(userDto.getRating())
+                .creationDate(userDto.getCreationDate())
                 .build();
     }
 
@@ -28,6 +29,7 @@ public class UserMapper {
                 .role(user.getRole())
                 .phone(user.getPhone())
                 .rating(user.getRating())
+                .creationDate(user.getCreationDate())
                 .build();
     }
 }
