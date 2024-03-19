@@ -18,4 +18,6 @@ public class Messages {
     public static final String LISTING_WAS_SUCCESSFULLY_DELETED = "Listing was successfully deleted";
     public static final String PROJECT_WAS_DELETED_SUCCESSFULLY = "Project was deleted successfully";
     public static final String THERE_BID_FOUND_WITH_THIS_ID = "There bid found with this id";
+    public static final String BID_WAS_SUCCESFULLY_DELETED = "Bid was succesfully deleted";
+    public static final String NO_BID_WITH_THIS_ID_FOUND = "No bid with this id found";
 }

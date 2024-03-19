@@ -19,6 +19,7 @@ public class BidMapper {
                 .id(bidDto.getId())
                 .amount(bidDto.getAmount())
                 .message(bidDto.getMessage())
+                .creationDate(bidDto.getCreationDate())
                 .bidder(userService.findById(bidDto.getBidderId()))
                 .project(projectService.findById(bidDto.getProjectId()))
                 .build();
@@ -29,6 +30,7 @@ public class BidMapper {
                 .id(bid.getId())
                 .amount(bid.getAmount())
                 .message(bid.getMessage())
+                .creationDate(bid.getCreationDate())
                 .bidderId(bid.getBidder().getId())
                 .projectId(bid.getProject().getId())
                 .build();
