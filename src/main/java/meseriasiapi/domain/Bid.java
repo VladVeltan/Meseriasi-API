@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
+
 @Table(name="bids")
 @Entity
 @Getter
@@ -15,6 +17,8 @@ public class Bid extends BaseEntity{
     private double amount;
 
     private String message;
+
+    private LocalDateTime creationDate;
 
     @ManyToOne
     @NonNull
