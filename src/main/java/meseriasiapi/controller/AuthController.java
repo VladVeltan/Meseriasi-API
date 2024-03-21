@@ -1,5 +1,6 @@
 package meseriasiapi.controller;
 
+import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import meseriasiapi.domain.AuthenticationResponse;
 import meseriasiapi.domain.User;
@@ -17,7 +18,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody User request) {
-        return new ResponseEntity<>(authService.register(request), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(authService.register(request), HttpStatus.OK);
+        }catch(EntityExistsException ex){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
     }
 
     @PostMapping("/login")
