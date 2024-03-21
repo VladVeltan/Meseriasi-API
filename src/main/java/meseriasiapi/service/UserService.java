@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import meseriasiapi.domain.Role;
 import meseriasiapi.domain.User;
 import meseriasiapi.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import static meseriasiapi.exceptions.messages.Messages.*;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public User findById(UUID id) {
         Optional<User> user = userRepository.findById(id);
@@ -45,7 +47,7 @@ public class UserService {
 
     public User createUser(User user) {
         System.out.println(user);
-        if (!checkIfRoleIsInEnum(user.getRole().name()) || user.getRole() == null) {
+        if (!checkIfRoleIsInEnum(user.getRole().name())) {
             throw new EntityNotFoundException(ROLE_DOES_NOT_EXIST);
         }
 
@@ -59,7 +61,7 @@ public class UserService {
 
     public User updateUser(User newUser) {
 
-        if (!checkIfRoleIsInEnum(newUser.getRole().name()) || newUser.getRole() == null) {
+        if (!checkIfRoleIsInEnum(newUser.getRole().name())) {
             throw new EntityNotFoundException(ROLE_DOES_NOT_EXIST);
         }
         Optional<User> existingUserById = userRepository.findById(newUser.getId());
@@ -72,7 +74,7 @@ public class UserService {
         User updatedUser = User.builder()
                 .id(existingUser.getId())
                 .email(newUser.getEmail())
-                .password(newUser.getPassword()) //need to be encrypted
+                .password(passwordEncoder.encode(newUser.getPassword())) //need to be encrypted
                 .role(newUser.getRole())
                 .phone(newUser.getPhone())
                 .rating(newUser.getRating())
