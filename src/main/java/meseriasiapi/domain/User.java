@@ -1,9 +1,6 @@
 package meseriasiapi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +21,7 @@ import java.util.List;
 @SuperBuilder
 public class User extends BaseEntity implements UserDetails {
     @NonNull
+    @Column(unique = true)
     private String email;
     @NonNull
     private String password;

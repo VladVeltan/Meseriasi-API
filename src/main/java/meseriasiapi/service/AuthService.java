@@ -1,5 +1,6 @@
 package meseriasiapi.service;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import meseriasiapi.domain.AuthenticationResponse;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static meseriasiapi.exceptions.messages.Messages.THERE_ALREADY_IS_A_USER_WITH_THIS_EMAIL;
 import static meseriasiapi.exceptions.messages.Messages.USER_NOT_FOUND;
 
 @Service
@@ -34,11 +36,17 @@ public class AuthService {
                 .creationDate(request.getCreationDate())
                 .build();
 
-        user = userRepository.save(user);
+        Optional<User> optionalUser=userRepository.findByEmail(user.getEmail());
+        if(optionalUser.isEmpty()){
+            user = userRepository.save(user);
 
-        String token = jwtService.generateToken(user);
+            String token = jwtService.generateToken(user);
 
-        return new AuthenticationResponse(token);
+            return new AuthenticationResponse(token);
+        }else{
+            throw new EntityExistsException(THERE_ALREADY_IS_A_USER_WITH_THIS_EMAIL);
+        }
+
     }
 
     public AuthenticationResponse authenticate(User request) {
