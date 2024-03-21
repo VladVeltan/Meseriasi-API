@@ -1,6 +1,8 @@
 ## ℹ️ About
 Mesteri-API is the backend service for the MesteriConnect web platform. It provides the necessary endpoints and functionalities to handle user authentication, listing requests, project uploads, and bidding.
 
+Project is in progres.
+
 ## 🛠️ Functionalities
 
 ✅ User Authentication: Handles user registration, login, and authentication using JWT Token.
