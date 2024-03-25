@@ -17,9 +17,18 @@ import static meseriasiapi.exceptions.messages.Messages.*;
 public class BidService {
 
     private final BidRepository bidRepository;
-
+    private final ProjectService projectService;
+    private final UserService userService;
     public Bid createBid(Bid bid) {
-        return bidRepository.save(bid);
+        try{
+            projectService.findById(bid.getProject().getId());
+            userService.findById(bid.getBidder().getId());
+            return bidRepository.save(bid);
+
+        }catch (EntityNotFoundException ex){
+            throw new EntityNotFoundException(FAILED_TO_CREATE_BID + ex.getMessage());
+        }
+
     }
 
     public Bid findById(UUID bidId){
