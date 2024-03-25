@@ -18,6 +18,6 @@ public class Messages {
     public static final String THERE_BID_FOUND_WITH_THIS_ID = "There bid found with this id";
     public static final String BID_WAS_SUCCESFULLY_DELETED = "Bid was succesfully deleted";
     public static final String NO_BID_WITH_THIS_ID_FOUND = "No bid with this id found";
-    public static final String NO_USER_WITH_THIS_EMAIL_FOUND = "NO USER WITH THIS EMAIL FOUND";
     public static final String THERE_ALREADY_IS_A_USER_WITH_THIS_EMAIL = "There already is a user with this email";
+    public static final String MEDIA_IS_NOT_LINKED_TO_ANY_EXISTING_USER_LISTING_OR_PROJECT = "Media is not linked to any user,listing or project";
 }

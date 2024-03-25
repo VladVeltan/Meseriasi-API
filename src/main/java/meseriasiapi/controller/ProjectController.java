@@ -30,7 +30,6 @@ public class ProjectController {
 
     @GetMapping("/{projectId}")
     public ResponseEntity<ProjectDto> getProjectById(@PathVariable UUID projectId) {
-
         try {
             Project project = projectService.findById(projectId);
             ProjectDto projectDto = projectMapper.toDto(project);

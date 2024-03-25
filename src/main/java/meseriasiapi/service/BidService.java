@@ -22,23 +22,24 @@ public class BidService {
         return bidRepository.save(bid);
     }
 
-    public Bid findById(UUID bidId){
-        Optional<Bid>optionalBid=bidRepository.findById(bidId);
-        if(optionalBid.isEmpty()){
-            throw new EntityNotFoundException(THERE_BID_FOUND_WITH_THIS_ID+bidId);
+    public Bid findById(UUID bidId) {
+        Optional<Bid> optionalBid = bidRepository.findById(bidId);
+        if (optionalBid.isEmpty()) {
+            throw new EntityNotFoundException(THERE_BID_FOUND_WITH_THIS_ID + bidId);
         }
         return optionalBid.get();
     }
-    public List<Bid> getAllBids(){
+
+    public List<Bid> getAllBids() {
         return bidRepository.findAll();
     }
 
     public String deleteBid(UUID bidId) {
-        Optional<Bid> optionalBid=bidRepository.findById(bidId);
-        if(optionalBid.isPresent()){
+        Optional<Bid> optionalBid = bidRepository.findById(bidId);
+        if (optionalBid.isPresent()) {
             bidRepository.delete(optionalBid.get());
             return BID_WAS_SUCCESFULLY_DELETED;
-        }else{
+        } else {
             throw new EntityNotFoundException(NO_BID_WITH_THIS_ID_FOUND);
         }
     }

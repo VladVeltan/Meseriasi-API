@@ -67,6 +67,7 @@ public class ProjectService {
     }
 
     public String deleteProject(UUID id) {
+
         Optional<Project> project = projectRepository.findById(id);
         if (project.isPresent()) {
             projectRepository.delete(project.get());

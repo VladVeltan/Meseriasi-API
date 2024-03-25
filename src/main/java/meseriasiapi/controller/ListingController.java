@@ -53,6 +53,10 @@ public class ListingController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteListing(@PathVariable UUID id) {
-        return new ResponseEntity<>(listingService.deleteListing(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(listingService.deleteListing(id), HttpStatus.OK);
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
