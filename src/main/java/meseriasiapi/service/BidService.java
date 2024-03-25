@@ -17,37 +17,29 @@ import static meseriasiapi.exceptions.messages.Messages.*;
 public class BidService {
 
     private final BidRepository bidRepository;
-    private final ProjectService projectService;
-    private final UserService userService;
+
     public Bid createBid(Bid bid) {
-        try{
-            projectService.findById(bid.getProject().getId());
-            userService.findById(bid.getBidder().getId());
-            return bidRepository.save(bid);
-
-        }catch (EntityNotFoundException ex){
-            throw new EntityNotFoundException(FAILED_TO_CREATE_BID + ex.getMessage());
-        }
-
+        return bidRepository.save(bid);
     }
 
-    public Bid findById(UUID bidId){
-        Optional<Bid>optionalBid=bidRepository.findById(bidId);
-        if(optionalBid.isEmpty()){
-            throw new EntityNotFoundException(THERE_BID_FOUND_WITH_THIS_ID+bidId);
+    public Bid findById(UUID bidId) {
+        Optional<Bid> optionalBid = bidRepository.findById(bidId);
+        if (optionalBid.isEmpty()) {
+            throw new EntityNotFoundException(THERE_BID_FOUND_WITH_THIS_ID + bidId);
         }
         return optionalBid.get();
     }
-    public List<Bid> getAllBids(){
+
+    public List<Bid> getAllBids() {
         return bidRepository.findAll();
     }
 
     public String deleteBid(UUID bidId) {
-        Optional<Bid> optionalBid=bidRepository.findById(bidId);
-        if(optionalBid.isPresent()){
+        Optional<Bid> optionalBid = bidRepository.findById(bidId);
+        if (optionalBid.isPresent()) {
             bidRepository.delete(optionalBid.get());
             return BID_WAS_SUCCESFULLY_DELETED;
-        }else{
+        } else {
             throw new EntityNotFoundException(NO_BID_WITH_THIS_ID_FOUND);
         }
     }

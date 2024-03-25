@@ -46,6 +46,7 @@ public class ListingService {
         if (checkIfCategoryIsInEnum(listing.getCategory().name())) {
             throw new EntityNotFoundException(LISTING_CATEGORY_NOT_FOUND);
         }
+
         return listingRepository.save(listing);
 
     }
