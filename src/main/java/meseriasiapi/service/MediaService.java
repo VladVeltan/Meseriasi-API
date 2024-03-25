@@ -6,6 +6,7 @@ import meseriasiapi.domain.Media;
 import meseriasiapi.repository.MediaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -48,5 +49,9 @@ public class MediaService {
         } else {
             throw new EntityNotFoundException(NO_MEDIA_WITH_THIS_ID);
         }
+    }
+
+    public List<Media> getAllMedias() {
+        return mediaRepository.findAll();
     }
 }

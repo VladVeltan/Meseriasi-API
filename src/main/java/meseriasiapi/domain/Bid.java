@@ -14,10 +14,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @SuperBuilder
 public class Bid extends BaseEntity{
+    @NonNull
     private double amount;
 
     private String message;
-
+    @NonNull
     private LocalDateTime creationDate;
 
     @ManyToOne
@@ -25,7 +26,8 @@ public class Bid extends BaseEntity{
     @JoinColumn(name="user_id")
     private User bidder;
 
-    @OneToOne
+    @ManyToOne
+    @NonNull
     @JoinColumn(name="project_id")
     private Project project;
 

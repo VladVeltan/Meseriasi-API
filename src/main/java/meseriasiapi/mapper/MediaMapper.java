@@ -1,5 +1,6 @@
 package meseriasiapi.mapper;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import meseriasiapi.domain.Listing;
 import meseriasiapi.domain.Media;
@@ -13,9 +14,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+import static meseriasiapi.exceptions.messages.Messages.MEDIA_IS_NOT_LINKED_TO_ANY_EXISTING_USER_LISTING_OR_PROJECT;
+
 @Component
 @AllArgsConstructor
 public class MediaMapper {
+
     private final UserService userService;
     private final ListingService listingService;
     private final ProjectService projectService;
@@ -42,6 +46,9 @@ public class MediaMapper {
             project = projectService.findById(mediaDto.getProjectId());
         } catch (Exception e) {
             // Ignoră excepția pentru project
+        }
+        if (user == null && listing == null && project == null) {
+            throw new EntityNotFoundException(MEDIA_IS_NOT_LINKED_TO_ANY_EXISTING_USER_LISTING_OR_PROJECT);
         }
         return Media.builder()
                 .id(mediaDto.getId())
