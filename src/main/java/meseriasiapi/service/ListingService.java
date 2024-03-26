@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import meseriasiapi.domain.Category;
 import meseriasiapi.domain.Listing;
 import meseriasiapi.repository.ListingRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +19,6 @@ import static meseriasiapi.exceptions.messages.Messages.*;
 @Service
 @AllArgsConstructor
 public class ListingService {
-
 
     private final ListingRepository listingRepository;
 
@@ -84,5 +86,17 @@ public class ListingService {
         } else {
             throw new EntityNotFoundException(NO_LISTING_WITH_THIS_ID_FOUND);
         }
+    }
+
+    public List<Listing> findAllListingsWithSorting(String fieldToSortBy){
+        return listingRepository.findAll(Sort.by(Sort.Direction.DESC,fieldToSortBy));
+    }
+
+    public Page<Listing> findListingsWithPagination(int offset,int pageSize){
+        return  listingRepository.findAll(PageRequest.of(offset,pageSize));
+    }
+
+    public Page<Listing> findListingsWithPaginationAndSorting(int offset,int pageSize,String field){
+        return  listingRepository.findAll(PageRequest.of(offset,pageSize).withSort(Sort.by(Sort.Direction.DESC,field)));
     }
 }
