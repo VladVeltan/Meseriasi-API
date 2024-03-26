@@ -7,6 +7,7 @@ import meseriasiapi.domain.Project;
 import meseriasiapi.dto.ProjectDto;
 import meseriasiapi.mapper.ProjectMapper;
 import meseriasiapi.service.ProjectService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,4 +54,27 @@ public class ProjectController {
     public ResponseEntity<String> deleteProgram(@PathVariable UUID id) {
         return new ResponseEntity<>(projectService.deleteProject(id), HttpStatus.OK);
     }
+
+
+    @GetMapping("/sort/{fieldToSortBy}")
+    public ResponseEntity<List<ProjectDto>> getAllProjectsWithSorting(@PathVariable String fieldToSortBy) {
+        List<Project> projectList = projectService.findAllProjectsWithSorting(fieldToSortBy);
+        List<ProjectDto> projectDtoList = projectList.stream().map(projectMapper::toDto).toList();
+        return new ResponseEntity<>(projectDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/pagination/{offset}/{pageSize}")
+    public ResponseEntity<Page<ProjectDto>> getAllProjectsWithPagination(@PathVariable int offset, @PathVariable int pageSize) {
+        Page<Project> projectPage = projectService.findProjectsWithPagination(offset, pageSize);
+        Page<ProjectDto> projectDtoPage = projectPage.map(projectMapper::toDto);
+        return new ResponseEntity<>(projectDtoPage, HttpStatus.OK);
+    }
+
+    @GetMapping("/pagination/sort/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<ProjectDto>> getAllProjectsWithPaginationAndSorting(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field) {
+        Page<Project> projectPage = projectService.findProjectsWithPaginationAndSorting(offset, pageSize, field);
+        Page<ProjectDto> projectDtoPage = projectPage.map(projectMapper::toDto);
+        return new ResponseEntity<>(projectDtoPage, HttpStatus.OK);
+    }
+
 }
