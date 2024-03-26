@@ -4,6 +4,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import meseriasiapi.domain.Project;
 import meseriasiapi.repository.ProjectRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -75,5 +78,16 @@ public class ProjectService {
         } else {
             throw new EntityNotFoundException(NO_PROJECT_WITH_THIS_ID_FOUND);
         }
+    }
+    public List<Project> findAllProjectsWithSorting(String fieldToSortBy) {
+        return projectRepository.findAll(Sort.by(Sort.Direction.DESC, fieldToSortBy));
+    }
+
+    public Page<Project> findProjectsWithPagination(int offset, int pageSize) {
+        return projectRepository.findAll(PageRequest.of(offset, pageSize));
+    }
+
+    public Page<Project> findProjectsWithPaginationAndSorting(int offset, int pageSize, String field) {
+        return projectRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(Sort.Direction.DESC, field)));
     }
 }
