@@ -20,6 +20,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/bids")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class BidController {
 
     private final BidService bidService;
