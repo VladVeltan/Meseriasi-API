@@ -19,6 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/listings")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ListingController {
     private final ListingService listingService;
     private final ListingMapper listingMapper;

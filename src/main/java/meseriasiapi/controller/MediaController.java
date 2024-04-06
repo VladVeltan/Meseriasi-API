@@ -20,6 +20,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/medias")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class MediaController {
     private final MediaService mediaService;
     private final MediaMapper mediaMapper;
