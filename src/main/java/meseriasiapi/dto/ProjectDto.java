@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import meseriasiapi.domain.Category;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -19,4 +20,5 @@ public class ProjectDto {
     private Category category;
     private String county;
     private String city;
+    private LocalDate expectedDueDate;
 }
