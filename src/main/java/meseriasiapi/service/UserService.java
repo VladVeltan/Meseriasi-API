@@ -79,6 +79,8 @@ public class UserService {
                 .phone(newUser.getPhone())
                 .rating(newUser.getRating())
                 .creationDate(existingUser.getCreationDate())
+                .firstName(newUser.getFirstName())
+                .lastName(newUser.getLastName())
                 .build();
 
         return userRepository.save(updatedUser);

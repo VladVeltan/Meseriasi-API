@@ -64,6 +64,7 @@ public class ProjectService {
                 .county(newProject.getCounty())
                 .city(newProject.getCity())
                 .user(newProject.getUser())
+                .expectedDueDate(newProject.getExpectedDueDate())
                 .build();
         return projectRepository.save(updatedProject);
 

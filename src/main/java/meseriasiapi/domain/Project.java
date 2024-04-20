@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table(name = "projects")
@@ -36,5 +37,7 @@ public class Project extends BaseEntity {
     private String county;
     @NonNull
     private String city;
+    @NonNull
+    private LocalDate expectedDueDate;
 
 }

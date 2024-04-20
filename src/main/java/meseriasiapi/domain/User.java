@@ -35,6 +35,10 @@ public class User extends BaseEntity implements UserDetails {
     private String rating;
     @NonNull
     private LocalDateTime creationDate;
+    @NonNull
+    private String firstName;
+    @NonNull
+    private String lastName;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

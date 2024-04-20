@@ -18,6 +18,8 @@ public class UserMapper {
                 .phone(userDto.getPhone())
                 .rating(userDto.getRating())
                 .creationDate(userDto.getCreationDate())
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
                 .build();
     }
 
@@ -30,6 +32,8 @@ public class UserMapper {
                 .phone(user.getPhone())
                 .rating(user.getRating())
                 .creationDate(user.getCreationDate())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
                 .build();
     }
 }

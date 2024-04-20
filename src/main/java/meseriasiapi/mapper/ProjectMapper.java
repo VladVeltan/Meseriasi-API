@@ -22,6 +22,7 @@ public class ProjectMapper {
                 .status(project.getStatus())
                 .county(project.getCounty())
                 .city(project.getCity())
+                .expectedDueDate(project.getExpectedDueDate())
                 .build();
     }
 
@@ -36,6 +37,7 @@ public class ProjectMapper {
                 .creationDate(projectDto.getCreationDate())
                 .county(projectDto.getCounty())
                 .city(projectDto.getCity())
+                .expectedDueDate(projectDto.getExpectedDueDate())
                 .build();
 
     }

@@ -25,5 +25,7 @@ public class UserDto {
     private String rating;
 
     private LocalDateTime creationDate;
+    private String firstName;
+    private String lastName;
 
 }
