@@ -23,9 +23,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    public static final String USERS_PATH = "/users";
-    public static final String API_AUTH_LOGIN = "/auth/login";
+    public static final String LOGIN_PATH = "/login";
+    public static final String REGISTER_PATH = "/register";
     public static final String LISTINGS_PATH = "/listings";
+    public static final String USERS_PATH = "/users";
+    public static final String PROJECTS_PATH = "/projects";
+    public static final String MEDIAS_PATH = "/medias";
     private final UserDetailsServiceImp userDetailsServiceImp;
     private final JwtAuthFilter jwtAuthFilter;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
@@ -36,11 +39,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req -> req
-                                .requestMatchers("/login/**", "/register/**").permitAll()
-                                .requestMatchers("/listings/**").hasAnyAuthority("USER", "ADMIN")
-                                .requestMatchers("/users/**").hasAnyAuthority("USER", "ADMIN")
-                                .requestMatchers("/projects/**").hasAnyAuthority("USER", "ADMIN")
-                                .requestMatchers("/media/**").hasAnyAuthority("USER", "ADMIN")
+                                .requestMatchers(LOGIN_PATH + "/**", REGISTER_PATH + "/**").permitAll()
+                                .requestMatchers(LISTINGS_PATH + "/**").hasAnyAuthority("USER", "ADMIN")
+                                .requestMatchers(USERS_PATH + "/**").hasAnyAuthority("USER", "ADMIN")
+                                .requestMatchers(PROJECTS_PATH + "/**").hasAnyAuthority("USER", "ADMIN")
+                                .requestMatchers(MEDIAS_PATH + "/**").hasAnyAuthority("USER", "ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsServiceImp)
