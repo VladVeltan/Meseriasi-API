@@ -30,7 +30,6 @@ public class User extends BaseEntity implements UserDetails {
     private Role role;
     @NonNull
     private String phone;
-
     @NonNull
     private String rating;
     @NonNull
