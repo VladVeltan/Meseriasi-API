@@ -54,4 +54,11 @@ public class MediaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @GetMapping("/{idType}/{id}")
+    public ResponseEntity<List<MediaDto>> getMediaByTypeAndId(@PathVariable String idType, @PathVariable UUID id) {
+        List<Media> mediaList = mediaService.findMediaByTypeAndId(id, idType);
+        List<MediaDto> mediaDtoList = mediaList.stream().map(mediaMapper::toDto).toList();
+        return new ResponseEntity<>(mediaDtoList, OK);
+    }
+
 }

@@ -6,6 +6,7 @@ import meseriasiapi.domain.Media;
 import meseriasiapi.repository.MediaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -54,4 +55,21 @@ public class MediaService {
     public List<Media> getAllMedias() {
         return mediaRepository.findAll();
     }
+    public List<Media> findMediaByTypeAndId(UUID id, String idType) {
+        List<Media> allMedia = mediaRepository.findAll();
+        List<Media> filteredMedia = new ArrayList<>();
+
+        for (Media media : allMedia) {
+            if (idType.equals("listing_id") && media.getListing() != null && media.getListing().getId().equals(id)) {
+                filteredMedia.add(media);
+            } else if (idType.equals("project_id") && media.getProject() != null && media.getProject().getId().equals(id)) {
+                filteredMedia.add(media);
+            } else if (idType.equals("user_id") && media.getUser() != null && media.getUser().getId().equals(id)) {
+                filteredMedia.add(media);
+            }
+        }
+
+        return filteredMedia;
+    }
+
 }

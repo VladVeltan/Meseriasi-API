@@ -21,11 +21,12 @@ public class UserDto {
 
     private String phone;
 
-
     private String rating;
 
     private LocalDateTime creationDate;
+
     private String firstName;
+
     private String lastName;
 
 }
