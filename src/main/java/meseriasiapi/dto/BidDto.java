@@ -12,6 +12,6 @@ public class BidDto {
     private double amount;
     private String message;
     private LocalDateTime creationDate;
-    private UUID bidderId;
+    private String bidderEmail;
     private UUID projectId;
 }

@@ -19,16 +19,25 @@ import static meseriasiapi.exceptions.messages.Messages.*;
 @AllArgsConstructor
 public class UserService {
 
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public User findById(UUID id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
-            throw new EntityNotFoundException(NO_USER_WITH_THIS_ID_FOUND);
+            throw new EntityNotFoundException(NO_USER_WITH_THIS_ID_FOUND+id);
         }
         return user.get();
 
+    }
+
+    public User findByEmail(String userEmail) {
+        Optional<User> user=userRepository.findByEmail(userEmail);
+        if (user.isEmpty()) {
+            throw new EntityNotFoundException(NO_USER_WITH_THIS_EMAIL_FOUND+userEmail);
+        }
+        return user.get();
     }
 
     public List<User> getAllUsers() {
@@ -85,4 +94,6 @@ public class UserService {
 
         return userRepository.save(updatedUser);
     }
+
+
 }

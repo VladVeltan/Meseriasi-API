@@ -55,4 +55,11 @@ public class BidController {
         }
 
     }
+
+    @GetMapping("/{projectId}")
+    public ResponseEntity<List<BidDto>>getAllBidsForProjet(@PathVariable UUID projectId){
+        List<Bid> bidList = bidService.getAllBidsForProject(projectId);
+        List<BidDto> bidDtoList = bidList.stream().map(bidMapper::toDto).toList();
+        return new ResponseEntity<>(bidDtoList, OK);
+    }
 }

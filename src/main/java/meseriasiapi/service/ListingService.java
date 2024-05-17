@@ -45,7 +45,7 @@ public class ListingService {
 
     public Listing createListing(Listing listing) {
 
-        if (checkIfCategoryIsInEnum(listing.getCategory().name())) {
+        if (checkIfCategoryIsInEnum(listing.getCategory())) {
             throw new EntityNotFoundException(LISTING_CATEGORY_NOT_FOUND);
         }
 
@@ -54,7 +54,7 @@ public class ListingService {
     }
 
     public Listing updateListing(Listing newUser) {
-        if (checkIfCategoryIsInEnum(newUser.getCategory().name())) {
+        if (checkIfCategoryIsInEnum(newUser.getCategory())) {
             throw new EntityNotFoundException(CATEGORY_DOES_NOT_EXIST);
         }
         Optional<Listing> existingListingById = listingRepository.findById(newUser.getId());

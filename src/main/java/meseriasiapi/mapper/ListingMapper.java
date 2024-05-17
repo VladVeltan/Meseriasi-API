@@ -22,7 +22,10 @@ public class ListingMapper {
                 .city(listing.getCity())
                 .creationDate(listing.getCreationDate())
                 .status(listing.getStatus())
-                .user_id(listing.getUser().getId())
+                .userEmail(listing.getUser().getEmail())
+                .userPhone(listing.getUser().getPhone())
+                .userLastName(listing.getUser().getLastName())
+                .userFirstName(listing.getUser().getFirstName())
                 .build();
     }
 
@@ -36,7 +39,7 @@ public class ListingMapper {
                 .city(listingDto.getCity())
                 .creationDate(listingDto.getCreationDate())
                 .status(listingDto.getStatus())
-                .user(userService.findById(listingDto.getUser_id()))
+                .user(userService.findByEmail(listingDto.getUserEmail()))
                 .build();
     }
 }
