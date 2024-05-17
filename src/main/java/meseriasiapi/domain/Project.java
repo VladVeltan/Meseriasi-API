@@ -39,5 +39,6 @@ public class Project extends BaseEntity {
     private String city;
     @NonNull
     private LocalDate expectedDueDate;
+    private String actionDuration;
 
 }

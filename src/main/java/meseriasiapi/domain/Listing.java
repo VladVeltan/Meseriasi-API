@@ -18,9 +18,8 @@ public class Listing extends BaseEntity {
     private String title;
     @NonNull
     private String description;
-    @Enumerated(value = EnumType.STRING)
     @NonNull
-    private Category category;
+    private String category;
     @NonNull
     private String county;
     @NonNull

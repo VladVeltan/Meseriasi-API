@@ -6,6 +6,7 @@ import meseriasiapi.domain.Bid;
 import meseriasiapi.repository.BidRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,5 +43,17 @@ public class BidService {
         } else {
             throw new EntityNotFoundException(NO_BID_WITH_THIS_ID_FOUND);
         }
+    }
+
+    public List<Bid> getAllBidsForProject(UUID projectId) {
+        List<Bid> bids=bidRepository.findAll();
+        List<Bid> bidsForProject = new ArrayList<>();
+        for(Bid bid: bids){
+            if(bid.getProject().getId().equals(projectId)){
+                bidsForProject.add(bid);
+            }
+        }
+        return bidsForProject;
+
     }
 }

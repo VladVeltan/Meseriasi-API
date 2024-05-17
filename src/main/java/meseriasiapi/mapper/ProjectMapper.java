@@ -16,13 +16,17 @@ public class ProjectMapper {
                 .id(project.getId())
                 .title(project.getTitle())
                 .description(project.getDescription())
-                .user_id(project.getUser().getId())
+                .userEmail(project.getUser().getEmail())
                 .creationDate(project.getCreationDate())
                 .category(project.getCategory())
                 .status(project.getStatus())
                 .county(project.getCounty())
                 .city(project.getCity())
+                .userPhone(project.getUser().getPhone())
+                .userLastName(project.getUser().getLastName())
+                .userFirstName(project.getUser().getFirstName())
                 .expectedDueDate(project.getExpectedDueDate())
+                .actionDuration(project.getActionDuration())
                 .build();
     }
 
@@ -31,13 +35,14 @@ public class ProjectMapper {
                 .id(projectDto.getId())
                 .title(projectDto.getTitle())
                 .description(projectDto.getDescription())
-                .user(userService.findById(projectDto.getUser_id()))
+                .user(userService.findByEmail(projectDto.getUserEmail()))
                 .category(projectDto.getCategory())
                 .status(projectDto.getStatus())
                 .creationDate(projectDto.getCreationDate())
                 .county(projectDto.getCounty())
                 .city(projectDto.getCity())
                 .expectedDueDate(projectDto.getExpectedDueDate())
+                .actionDuration(projectDto.getActionDuration())
                 .build();
 
     }

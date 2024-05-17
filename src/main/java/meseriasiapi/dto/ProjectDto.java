@@ -14,11 +14,15 @@ public class ProjectDto {
     private UUID id;
     private String title;
     private String description;
-    private UUID user_id;
     private Boolean status;
     private LocalDateTime creationDate;
     private Category category;
     private String county;
     private String city;
+    private String userEmail;
+    private String userPhone;
+    private String userFirstName;
+    private String userLastName;
     private LocalDate expectedDueDate;
+    private String actionDuration;
 }
