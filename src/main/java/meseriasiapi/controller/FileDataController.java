@@ -18,10 +18,9 @@ import java.util.UUID;
 public class FileDataController {
     private final FileDataService fileDataService;
     @PostMapping("/{whichEntity}/{id}")
-    public ResponseEntity<?> uploadImageToFIleSystem(@RequestParam("image") MultipartFile file, @PathVariable UUID id,@PathVariable String whichEntity) throws IOException {
-        String uploadImage = fileDataService.uploadImageToFileSystem(file,id,whichEntity);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(uploadImage);
+    public ResponseEntity<?> uploadImagesToFileSystem(@RequestParam("images") MultipartFile[] files, @PathVariable UUID id, @PathVariable String whichEntity) throws IOException {
+        List<String> uploadedFiles = fileDataService.uploadImagesToFileSystem(files, id, whichEntity);
+        return ResponseEntity.status(HttpStatus.OK).body(uploadedFiles);
     }
 
     @GetMapping("/{fileName}")
@@ -38,5 +37,8 @@ public class FileDataController {
         return ResponseEntity.ok(filteredFileData);
 
     }
+
+
+
 
 }
