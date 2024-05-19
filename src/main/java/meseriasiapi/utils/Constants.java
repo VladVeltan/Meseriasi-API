@@ -6,6 +6,7 @@ public class Constants {
     public static final String PROJECT_ID = "project_id";
     public static final String USER_ID = "user_id";
     public static final String LOGIN_PATH = "/login";
+    public static final String BIDS = "/bids";
     public static final String REGISTER_PATH = "/register";
     public static final String LISTINGS_PATH = "/listings";
     public static final String USERS_PATH = "/users";
