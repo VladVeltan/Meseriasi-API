@@ -29,11 +29,12 @@ public class FileDataService {
     private final ListingService listingService;
     private final UserService userService;
 
-    public String uploadImageToFileSystem(MultipartFile file, UUID id, String whichEntity) throws IOException {
-        String filePath = C_USERS_VLAD_DESKTOP_MESERIASI_LICENTA_MEDIA_STORAGE + file.getOriginalFilename();
+    public List<String> uploadImagesToFileSystem(MultipartFile[] files, UUID id, String whichEntity) throws IOException {
+        List<String> uploadedFiles = new ArrayList<>();
         User user = null;
         Listing listing = null;
         Project project = null;
+
         switch (whichEntity) {
             case LISTING_ID:
                 try {
@@ -60,20 +61,24 @@ public class FileDataService {
                 throw new EntityNotFoundException(ENTITY_TYPE_MUST_BE_ONE_OF_LISTING_ID_PROJECT_ID_OR_USER_ID);
         }
 
+        for (MultipartFile file : files) {
+            String filePath = C_USERS_VLAD_DESKTOP_MESERIASI_LICENTA_MEDIA_STORAGE + file.getOriginalFilename();
+            fileDataRepository.save(FileData.builder()
+                    .name(Objects.requireNonNull(file.getOriginalFilename()))
+                    .type(Objects.requireNonNull(file.getContentType()))
+                    .filePath(filePath)
+                    .user(user)
+                    .project(project)
+                    .listing(listing)
+                    .build());
 
-        fileDataRepository.save(FileData.builder()
-                .name(Objects.requireNonNull(file.getOriginalFilename()))
-                .type(Objects.requireNonNull(file.getContentType()))
-                .filePath(filePath)
-                .user(user)
-                .project(project)
-                .listing(listing)
-                .build());
+            file.transferTo(new File(filePath));
+            uploadedFiles.add(FILE_UPLOADED_SUCCESSFULLY + filePath);
+        }
 
-        file.transferTo(new File(filePath));
-
-        return FILE_UPLOADED_SUCCESSFULLY + filePath;
+        return uploadedFiles;
     }
+
 
     public byte[] downloadImageFromFileSystem(String fileName) throws IOException {
         Optional<FileData> fileData = fileDataRepository.findByName(fileName);
