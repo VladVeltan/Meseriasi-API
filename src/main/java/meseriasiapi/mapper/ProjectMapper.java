@@ -27,6 +27,7 @@ public class ProjectMapper {
                 .userFirstName(project.getUser().getFirstName())
                 .expectedDueDate(project.getExpectedDueDate())
                 .actionDuration(project.getActionDuration())
+                .acceptBids(project.getAcceptBids())
                 .build();
     }
 
@@ -43,6 +44,7 @@ public class ProjectMapper {
                 .city(projectDto.getCity())
                 .expectedDueDate(projectDto.getExpectedDueDate())
                 .actionDuration(projectDto.getActionDuration())
+                .acceptBids(projectDto.getAcceptBids())
                 .build();
 
     }

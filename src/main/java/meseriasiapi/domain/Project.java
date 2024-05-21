@@ -40,5 +40,6 @@ public class Project extends BaseEntity {
     @NonNull
     private LocalDate expectedDueDate;
     private String actionDuration;
+    private Boolean acceptBids;
 
 }

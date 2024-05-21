@@ -76,5 +76,12 @@ public class ProjectController {
         Page<ProjectDto> projectDtoPage = projectPage.map(projectMapper::toDto);
         return new ResponseEntity<>(projectDtoPage, HttpStatus.OK);
     }
+    @GetMapping("/user/{userEmail}")
+    public ResponseEntity<List<ProjectDto>> getProjectsByUserEmail(@PathVariable String userEmail) {
+        List<Project> projectList = projectService.findProjectsByUserEmail(userEmail);
+        List<ProjectDto> projectDtoList = projectList.stream().map(projectMapper::toDto).toList();
+        return new ResponseEntity<>(projectDtoList, HttpStatus.OK);
+    }
+
 
 }

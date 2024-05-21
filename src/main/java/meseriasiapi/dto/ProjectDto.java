@@ -25,4 +25,5 @@ public class ProjectDto {
     private String userLastName;
     private LocalDate expectedDueDate;
     private String actionDuration;
+    private Boolean acceptBids;
 }

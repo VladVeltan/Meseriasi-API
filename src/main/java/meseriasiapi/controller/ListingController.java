@@ -56,7 +56,6 @@ public class ListingController {
 
     @GetMapping("/{listingId}")
     public ResponseEntity<ListingDto> getListingById(@PathVariable UUID listingId) {
-
         try {
             Listing listing = listingService.findById(listingId);
             ListingDto listingDto = listingMapper.toDto(listing);
@@ -83,6 +82,12 @@ public class ListingController {
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+    @GetMapping("/user/{userEmail}")
+    public ResponseEntity<List<ListingDto>> getListingsByUserEmail(@PathVariable String userEmail) {
+        List<Listing> listingList = listingService.findListingsByUserEmail(userEmail);
+        List<ListingDto> listingDtoList = listingList.stream().map(listingMapper::toDto).toList();
+        return new ResponseEntity<>(listingDtoList, HttpStatus.OK);
     }
 
 
