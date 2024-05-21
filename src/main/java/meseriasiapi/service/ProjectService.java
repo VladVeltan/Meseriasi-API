@@ -92,4 +92,8 @@ public class ProjectService {
     public Page<Project> findProjectsWithPaginationAndSorting(int offset, int pageSize, String field) {
         return projectRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(Sort.Direction.DESC, field)));
     }
+
+    public List<Project> findProjectsByUserEmail(String userEmail) {
+        return projectRepository.findByUserEmail(userEmail);
+    }
 }

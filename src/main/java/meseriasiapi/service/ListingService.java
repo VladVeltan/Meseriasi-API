@@ -99,4 +99,8 @@ public class ListingService {
     public Page<Listing> findListingsWithPaginationAndSorting(int offset,int pageSize,String field){
         return  listingRepository.findAll(PageRequest.of(offset,pageSize).withSort(Sort.by(Sort.Direction.DESC,field)));
     }
+
+    public List<Listing> findListingsByUserEmail(String userEmail) {
+        return listingRepository.findByUserEmail(userEmail);
+    }
 }

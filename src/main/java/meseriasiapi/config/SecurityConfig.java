@@ -41,7 +41,7 @@ public class SecurityConfig {
                                 .requestMatchers(USERS_PATH + "/**").hasAnyAuthority(USER, ADMIN)
                                 .requestMatchers(PROJECTS_PATH + "/**").hasAnyAuthority(USER, ADMIN)
                                 .requestMatchers(FILE_PATH + "/**").hasAnyAuthority(USER, ADMIN)
-                                .requestMatchers(BIDS + "/**").hasAnyAuthority(USER, ADMIN)
+                                .requestMatchers(BIDS_PATH + "/**").hasAnyAuthority(USER, ADMIN)
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsServiceImp)
