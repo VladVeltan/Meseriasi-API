@@ -38,6 +38,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email) {
+        try {
+            User user = userService.findByEmail(email);
+            UserDto userDto = userMapper.toDto(user);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
     @PostMapping()
     public ResponseEntity<UserDto> createUser(@RequestBody @NonNull UserDto userDto) {

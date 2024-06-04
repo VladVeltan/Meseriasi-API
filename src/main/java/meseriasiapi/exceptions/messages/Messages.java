@@ -21,4 +21,5 @@ public class Messages {
     public static final String FILE_UPLOADED_SUCCESSFULLY = "file uploaded successfully : ";
     public static final String FAILED_TO_DOWNLOAD = "failed to download";
     public static final String NO_USER_WITH_THIS_EMAIL_FOUND = "No User with this email found";
+    public static final String FILE_UPDATED_SUCCESSFULLY = "File updated successfully";
 }

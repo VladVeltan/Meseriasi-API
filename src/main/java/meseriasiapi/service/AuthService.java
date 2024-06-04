@@ -26,14 +26,23 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(User request) {
-
+        System.out.println(request.getEmail());
+        System.out.println(request.getFirstName());
+        System.out.println(request.getLastName());
+        System.out.println(request.getRating());
+        System.out.println(request.getPhone());
+        System.out.println(request.getEmail());
         User user = User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .phone(request.getPhone())
                 .rating(request.getRating())
                 .creationDate(request.getCreationDate())
+                .description(request.getDescription())
+                .yearsOfExperience(request.getYearsOfExperience())
                 .build();
 
         Optional<User> optionalUser=userRepository.findByEmail(user.getEmail());

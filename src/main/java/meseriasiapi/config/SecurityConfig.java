@@ -37,11 +37,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         req -> req
                                 .requestMatchers(LOGIN_PATH + "/**", REGISTER_PATH + "/**").permitAll()
-                                .requestMatchers(LISTINGS_PATH + "/**").hasAnyAuthority(USER, ADMIN)
-                                .requestMatchers(USERS_PATH + "/**").hasAnyAuthority(USER, ADMIN)
-                                .requestMatchers(PROJECTS_PATH + "/**").hasAnyAuthority(USER, ADMIN)
-                                .requestMatchers(FILE_PATH + "/**").hasAnyAuthority(USER, ADMIN)
-                                .requestMatchers(BIDS_PATH + "/**").hasAnyAuthority(USER, ADMIN)
+                                .requestMatchers(LISTINGS_PATH + "/**").hasAnyAuthority(USER,HANDYMAN, ADMIN)
+                                .requestMatchers(USERS_PATH + "/**").hasAnyAuthority(USER,HANDYMAN, ADMIN)
+                                .requestMatchers(PROJECTS_PATH + "/**").hasAnyAuthority(USER,HANDYMAN, ADMIN)
+                                .requestMatchers(FILE_PATH + "/**").hasAnyAuthority(USER,HANDYMAN, ADMIN)
+                                .requestMatchers(BIDS_PATH + "/**").hasAnyAuthority(USER,HANDYMAN, ADMIN)
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsServiceImp)

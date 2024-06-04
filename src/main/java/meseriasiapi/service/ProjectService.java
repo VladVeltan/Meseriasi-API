@@ -36,7 +36,7 @@ public class ProjectService {
 
     public Project createProject(Project project) {
 
-        if (listingService.checkIfCategoryIsInEnum(project.getCategory().name())) {
+        if (listingService.checkIfCategoryIsInEnum(project.getCategory())) {
             throw new EntityNotFoundException(PROJECT_CATEGORY_NOT_FOUND);
         }
 
@@ -45,7 +45,7 @@ public class ProjectService {
     }
 
     public Project updateProject(Project newProject) {
-        if (listingService.checkIfCategoryIsInEnum(newProject.getCategory().name())) {
+        if (listingService.checkIfCategoryIsInEnum(newProject.getCategory())) {
             throw new EntityNotFoundException(PROJECT_CATEGORY_NOT_FOUND);
         }
         Optional<Project> existingProjectById = projectRepository.findById(newProject.getId());

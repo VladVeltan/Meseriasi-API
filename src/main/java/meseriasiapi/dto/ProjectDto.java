@@ -2,7 +2,6 @@ package meseriasiapi.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import meseriasiapi.domain.Category;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +15,7 @@ public class ProjectDto {
     private String description;
     private Boolean status;
     private LocalDateTime creationDate;
-    private Category category;
+    private String category;
     private String county;
     private String city;
     private String userEmail;

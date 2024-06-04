@@ -90,6 +90,8 @@ public class UserService {
                 .creationDate(existingUser.getCreationDate())
                 .firstName(newUser.getFirstName())
                 .lastName(newUser.getLastName())
+                .description(newUser.getDescription())
+                .yearsOfExperience(newUser.getYearsOfExperience())
                 .build();
 
         return userRepository.save(updatedUser);

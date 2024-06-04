@@ -37,6 +37,11 @@ public class FileDataController {
         return ResponseEntity.ok(filteredFileData);
 
     }
+    @PutMapping("/{whichEntity}/{id}")
+    public ResponseEntity<?> updateImage(@RequestParam("image") MultipartFile file, @PathVariable UUID id, @PathVariable String whichEntity) throws IOException {
+        String updatedFile = fileDataService.updateImage(file, id, whichEntity);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedFile);
+    }
 
 
 
