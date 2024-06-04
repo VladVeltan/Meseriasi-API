@@ -24,6 +24,7 @@ import static meseriasiapi.utils.Constants.*;
 public class FileDataService {
 
 
+
     private final FileDataRepository fileDataRepository;
     private final ProjectService projectService;
     private final ListingService listingService;
@@ -106,5 +107,46 @@ public class FileDataService {
 
         return filteredFileData;
     }
+    public String updateImage(MultipartFile file, UUID id, String whichEntity) throws IOException {
+        User user = null;
+        Listing listing = null;
+        Project project = null;
+        List<FileData> fileDataToUpdate = new ArrayList<>();
+        switch (whichEntity) {
+            case LISTING_ID:
+                break;
+            case PROJECT_ID:
+                break;
+            case USER_ID:
+                user = userService.findById(id);
+                fileDataToUpdate = fileDataRepository.findByUser(user);
+                break;
+            default:
+                throw new EntityNotFoundException(ENTITY_TYPE_MUST_BE_ONE_OF_LISTING_ID_PROJECT_ID_OR_USER_ID);
+        }
+        String newFilePath = C_USERS_VLAD_DESKTOP_MESERIASI_LICENTA_MEDIA_STORAGE + file.getOriginalFilename();
+        // Update file name and file path
+        if (fileDataToUpdate.isEmpty()) {
+            FileData newFileData = FileData.builder()
+                    .name(file.getOriginalFilename())
+                    .type(file.getContentType())
+                    .filePath(newFilePath)
+                    .user(user)
+                    .project(project)
+                    .listing(listing)
+                    .build();
+            fileDataRepository.save(newFileData);
+        } else {
+            for (FileData data : fileDataToUpdate) {
+                data.setFilePath(newFilePath);
+                data.setName(file.getOriginalFilename());
+                fileDataRepository.save(data);
+            }
+        }
 
+        // Save new file
+        file.transferTo(new File(newFilePath));
+
+        return FILE_UPDATED_SUCCESSFULLY + newFilePath;
+    }
 }

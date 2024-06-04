@@ -20,6 +20,8 @@ public class UserMapper {
                 .creationDate(userDto.getCreationDate())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
+                .description(userDto.getDescription())
+                .yearsOfExperience(userDto.getYearsOfExperience())
                 .build();
     }
 
@@ -34,6 +36,8 @@ public class UserMapper {
                 .creationDate(user.getCreationDate())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
+                .description(user.getDescription())
+                .yearsOfExperience(user.getYearsOfExperience())
                 .build();
     }
 }

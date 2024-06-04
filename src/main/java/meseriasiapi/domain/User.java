@@ -31,13 +31,17 @@ public class User extends BaseEntity implements UserDetails {
     @NonNull
     private String phone;
     @NonNull
-    private String rating;
+    private double rating;
     @NonNull
     private LocalDateTime creationDate;
     @NonNull
     private String firstName;
     @NonNull
     private String lastName;
+    private String description;
+    private Integer yearsOfExperience;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

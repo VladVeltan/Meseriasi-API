@@ -14,4 +14,5 @@ public class Constants {
     public static final String FILE_PATH = "/image";
     public static final String USER = "USER";
     public static final String ADMIN = "ADMIN";
+    public static final String HANDYMAN = "HANDYMAN";
 }

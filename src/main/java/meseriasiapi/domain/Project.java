@@ -28,7 +28,7 @@ public class Project extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
     @NonNull
-    private Category category;
+    private String category;
     @NonNull
     private LocalDateTime creationDate;
     @NonNull

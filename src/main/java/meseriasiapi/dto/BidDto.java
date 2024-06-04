@@ -13,5 +13,7 @@ public class BidDto {
     private String message;
     private LocalDateTime creationDate;
     private String bidderEmail;
+    private String bidderFirstName;
+    private String bidderLastName;
     private UUID projectId;
 }

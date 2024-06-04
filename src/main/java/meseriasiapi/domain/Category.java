@@ -2,6 +2,7 @@ package meseriasiapi.domain;
 
 public enum Category {
     Constructori,
+    Reparatii,
     Curatenie,
     Electricieni,
     Exterminatori,
@@ -10,7 +11,7 @@ public enum Category {
     Ingineri_Gaze,
     Instalatori,
     Instalatori_Alarme_Camere_Video,
-    Instalatori_Antene_Tv_Satelit,
+    Instalatori_Antene_TV_Satelit,
     Lacatusi,
     Montatori_Rigips,
     Parchetari,
@@ -19,5 +20,6 @@ public enum Category {
     Tamplari,
     Zidari,
     Zugravi_Vopsitori,
-    Birocratie
+    Birocratie,
+    Diverse
 }

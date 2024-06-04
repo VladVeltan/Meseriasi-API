@@ -32,6 +32,8 @@ public class BidMapper {
                 .message(bid.getMessage())
                 .creationDate(bid.getCreationDate())
                 .bidderEmail(bid.getBidder().getEmail())
+                .bidderFirstName(bid.getBidder().getFirstName())
+                .bidderLastName(bid.getBidder().getLastName())
                 .projectId(bid.getProject().getId())
                 .build();
     }
