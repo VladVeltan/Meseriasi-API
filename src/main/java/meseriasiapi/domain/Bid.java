@@ -1,9 +1,6 @@
 package meseriasiapi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -29,7 +26,7 @@ public class Bid extends BaseEntity{
     @JoinColumn(name="user_id")
     private User bidder;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @NonNull
     @JoinColumn(name="project_id")
     private Project project;

@@ -9,6 +9,7 @@ import meseriasiapi.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,16 +27,16 @@ public class UserService {
     public User findById(UUID id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
-            throw new EntityNotFoundException(NO_USER_WITH_THIS_ID_FOUND+id);
+            throw new EntityNotFoundException(NO_USER_WITH_THIS_ID_FOUND + id);
         }
         return user.get();
 
     }
 
     public User findByEmail(String userEmail) {
-        Optional<User> user=userRepository.findByEmail(userEmail);
+        Optional<User> user = userRepository.findByEmail(userEmail);
         if (user.isEmpty()) {
-            throw new EntityNotFoundException(NO_USER_WITH_THIS_EMAIL_FOUND+userEmail);
+            throw new EntityNotFoundException(NO_USER_WITH_THIS_EMAIL_FOUND + userEmail);
         }
         return user.get();
     }
@@ -92,6 +93,8 @@ public class UserService {
                 .lastName(newUser.getLastName())
                 .description(newUser.getDescription())
                 .yearsOfExperience(newUser.getYearsOfExperience())
+                .age(newUser.getAge())
+                .categoriesOfInterest(newUser.getCategoriesOfInterest())
                 .build();
 
         return userRepository.save(updatedUser);

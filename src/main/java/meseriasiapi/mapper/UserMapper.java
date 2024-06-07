@@ -22,6 +22,8 @@ public class UserMapper {
                 .lastName(userDto.getLastName())
                 .description(userDto.getDescription())
                 .yearsOfExperience(userDto.getYearsOfExperience())
+                .age(userDto.getAge())
+                .categoriesOfInterest(userDto.getCategoriesOfInterest())
                 .build();
     }
 
@@ -38,6 +40,8 @@ public class UserMapper {
                 .lastName(user.getLastName())
                 .description(user.getDescription())
                 .yearsOfExperience(user.getYearsOfExperience())
+                .age(user.getAge())
+                .categoriesOfInterest(user.getCategoriesOfInterest())
                 .build();
     }
 }

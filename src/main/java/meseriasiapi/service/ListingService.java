@@ -9,7 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -53,11 +54,11 @@ public class ListingService {
 
     }
 
-    public Listing updateListing(Listing newUser) {
-        if (checkIfCategoryIsInEnum(newUser.getCategory())) {
+    public Listing updateListing(Listing newListing) {
+        if (checkIfCategoryIsInEnum(newListing.getCategory())) {
             throw new EntityNotFoundException(CATEGORY_DOES_NOT_EXIST);
         }
-        Optional<Listing> existingListingById = listingRepository.findById(newUser.getId());
+        Optional<Listing> existingListingById = listingRepository.findById(newListing.getId());
         if (existingListingById.isEmpty()) {
             throw new EntityNotFoundException(NO_LISTING_WITH_THIS_ID_FOUND);
         }
@@ -65,20 +66,20 @@ public class ListingService {
 
         Listing updatedListing = Listing.builder()
                 .id(existingListing.getId())
-                .title(newUser.getTitle())
-                .description(newUser.getDescription())
-                .category(newUser.getCategory())
-                .county(newUser.getCounty())
-                .city(newUser.getCity())
-                .user(newUser.getUser())
+                .title(newListing.getTitle())
+                .description(newListing.getDescription())
+                .category(newListing.getCategory())
+                .county(newListing.getCounty())
+                .city(newListing.getCity())
+                .user(newListing.getUser())
                 .creationDate(existingListing.getCreationDate())
-                .status(newUser.getStatus())
+                .status(newListing.getStatus())
                 .build();
 
         return listingRepository.save(updatedListing);
     }
 
-    public String deleteListing(UUID id) {
+        public String deleteListing(UUID id) {
         Optional<Listing> listing = listingRepository.findById(id);
         if (listing.isPresent()) {
             listingRepository.delete(listing.get());
@@ -88,19 +89,23 @@ public class ListingService {
         }
     }
 
-    public List<Listing> findAllListingsWithSorting(String fieldToSortBy){
-        return listingRepository.findAll(Sort.by(Sort.Direction.DESC,fieldToSortBy));
+    public List<Listing> findAllListingsWithSorting(String fieldToSortBy) {
+        return listingRepository.findAll(Sort.by(Sort.Direction.DESC, fieldToSortBy));
     }
 
-    public Page<Listing> findListingsWithPagination(int offset,int pageSize){
-        return  listingRepository.findAll(PageRequest.of(offset,pageSize));
+    public Page<Listing> findListingsWithPagination(int offset, int pageSize) {
+        return listingRepository.findAll(PageRequest.of(offset, pageSize));
     }
 
-    public Page<Listing> findListingsWithPaginationAndSorting(int offset,int pageSize,String field){
-        return  listingRepository.findAll(PageRequest.of(offset,pageSize).withSort(Sort.by(Sort.Direction.DESC,field)));
+    public Page<Listing> findListingsWithPaginationAndSorting(int offset, int pageSize, String field) {
+        return listingRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(Sort.Direction.DESC, field)));
     }
 
     public List<Listing> findListingsByUserEmail(String userEmail) {
         return listingRepository.findByUserEmail(userEmail);
+    }
+
+    public long countAllListings() {
+        return listingRepository.count();
     }
 }

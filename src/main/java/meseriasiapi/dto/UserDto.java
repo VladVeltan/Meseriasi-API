@@ -28,7 +28,13 @@ public class UserDto {
     private String firstName;
 
     private String lastName;
+
     private String description;
+
     private Integer yearsOfExperience;
+
+    private Integer age;
+
+    private String categoriesOfInterest;
 
 }

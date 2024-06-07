@@ -58,4 +58,5 @@ public class UserController {
     public ResponseEntity<UserDto> updateUser(@RequestBody @NonNull UserDto userDto) {
         return new ResponseEntity<>(userMapper.toDto(userService.updateUser(userMapper.toEntity(userDto))), HttpStatus.OK);
     }
+
 }
