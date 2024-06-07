@@ -70,7 +70,7 @@ public class ListingController {
         return new ResponseEntity<>(listingMapper.toDto(listingService.createListing(listingMapper.toEntity(listingDto))), HttpStatus.CREATED);
     }
 
-    @PutMapping()
+    @PutMapping("/update/update/update/update")
     public ResponseEntity<ListingDto> updateListing(@RequestBody @NonNull ListingDto newListingDto) {
         return new ResponseEntity<>(listingMapper.toDto(listingService.updateListing(listingMapper.toEntity(newListingDto))), HttpStatus.OK);
     }
@@ -88,6 +88,12 @@ public class ListingController {
         List<Listing> listingList = listingService.findListingsByUserEmail(userEmail);
         List<ListingDto> listingDtoList = listingList.stream().map(listingMapper::toDto).toList();
         return new ResponseEntity<>(listingDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/count/count/count")
+    public ResponseEntity<Long> countAllListings() {
+        long count = listingService.countAllListings();
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
 
 

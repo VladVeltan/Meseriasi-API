@@ -82,6 +82,11 @@ public class ProjectController {
         List<ProjectDto> projectDtoList = projectList.stream().map(projectMapper::toDto).toList();
         return new ResponseEntity<>(projectDtoList, HttpStatus.OK);
     }
+    @GetMapping("/count/count/count")
+    public ResponseEntity<Long> countAllProjects() {
+        long count = projectService.countAllProjects();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 
 
 }

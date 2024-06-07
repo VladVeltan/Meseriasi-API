@@ -11,7 +11,8 @@ public class Constants {
     public static final String LISTINGS_PATH = "/listings";
     public static final String USERS_PATH = "/users";
     public static final String PROJECTS_PATH = "/projects";
-    public static final String FILE_PATH = "/image";
+    public static final String FILE_PATH = "/medias";
+    public static  final String REVIEW="/reviews";
     public static final String USER = "USER";
     public static final String ADMIN = "ADMIN";
     public static final String HANDYMAN = "HANDYMAN";

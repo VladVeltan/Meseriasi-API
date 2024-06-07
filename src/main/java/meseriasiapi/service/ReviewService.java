@@ -1,42 +1,40 @@
 package meseriasiapi.service;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-
 import meseriasiapi.domain.Review;
 import meseriasiapi.domain.User;
-import meseriasiapi.dto.ReviewDto;
+import meseriasiapi.repository.ListingRepository;
+import meseriasiapi.repository.ProjectRepository;
 import meseriasiapi.repository.ReviewRepository;
 import meseriasiapi.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
+    private final ProjectRepository projectRepository;
+    private final ListingRepository listingRepository;
 
-    @Transactional
-    public Review createReview(ReviewDto reviewDto) {
-        User user = userRepository.findByEmail(reviewDto.getUserEmail())
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        User handyman = userRepository.findByEmail(reviewDto.getHandymanEmail())
-                .orElseThrow(() -> new EntityNotFoundException("Handyman not found"));
-
-        Review review = new Review();
-        review.setUser(user);
-        review.setHandyman(handyman);
-        review.setMark(reviewDto.getMark());
-        review.setMessage(reviewDto.getMessage());
-
+    public Review createReview(Review review) {
         reviewRepository.save(review);
+        Optional<User> optionalHandyman = userRepository.findByEmail(review.getHandyman().getEmail());
+        User handyman;
+        if (optionalHandyman.isPresent()) {
+            handyman = optionalHandyman.get();
+        } else {
+            throw new EntityNotFoundException("Handyman not found for review");
+        }
         updateHandymanRating(handyman);
         return review;
     }
 
-    public List<Review> getReviewsForHandyman(String handymanEmail) {
+    public List<Review> findByHandymanEmail(String handymanEmail) {
         User handyman = userRepository.findByEmail(handymanEmail)
                 .orElseThrow(() -> new EntityNotFoundException("Handyman not found"));
         return reviewRepository.findByHandyman(handyman);

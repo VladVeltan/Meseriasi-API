@@ -43,6 +43,8 @@ public class AuthService {
                 .creationDate(request.getCreationDate())
                 .description(request.getDescription())
                 .yearsOfExperience(request.getYearsOfExperience())
+                .age(request.getAge())
+                .categoriesOfInterest(request.getCategoriesOfInterest())
                 .build();
 
         Optional<User> optionalUser=userRepository.findByEmail(user.getEmail());

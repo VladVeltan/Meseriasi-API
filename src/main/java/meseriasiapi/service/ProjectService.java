@@ -2,7 +2,9 @@ package meseriasiapi.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import meseriasiapi.domain.Bid;
 import meseriasiapi.domain.Project;
+import meseriasiapi.repository.BidRepository;
 import meseriasiapi.repository.ProjectRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +23,7 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ListingService listingService;
+    private final BidRepository bidRepository;
 
     public Project findById(UUID projectId) {
         Optional<Project> project = projectRepository.findById(projectId);
@@ -75,7 +78,12 @@ public class ProjectService {
 
         Optional<Project> project = projectRepository.findById(id);
         if (project.isPresent()) {
+            List<Bid> bids = bidRepository.findByProjectId(id);
+            if (!bids.isEmpty()) {
+                bidRepository.deleteAll(bids);
+            }
             projectRepository.delete(project.get());
+
             return PROJECT_WAS_DELETED_SUCCESSFULLY;
         } else {
             throw new EntityNotFoundException(NO_PROJECT_WITH_THIS_ID_FOUND);
@@ -95,5 +103,8 @@ public class ProjectService {
 
     public List<Project> findProjectsByUserEmail(String userEmail) {
         return projectRepository.findByUserEmail(userEmail);
+    }
+    public long countAllProjects() {
+        return projectRepository.count();
     }
 }
